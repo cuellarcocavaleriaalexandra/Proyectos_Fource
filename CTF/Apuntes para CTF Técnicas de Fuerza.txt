@@ -1,0 +1,281 @@
+Apuntes para CTF: Técnicas de Fuerza Bruta
+1. Introducción
+La fuerza bruta es una técnica para adivinar contraseñas, claves, o tokens probando todas las combinaciones posibles o usando diccionarios de palabras comunes. En CTF, se usa en Criptografía (romper hashes, claves), Forense (desbloquear archivos ZIP, PDFs), y Web (atacar JWT, credenciales). La eficiencia depende de la herramienta, el diccionario, y la optimización del ataque.
+2. Herramientas Comunes
+
+Hashcat: Rompe hashes (MD5, SHA1, etc.) usando CPU/GPU.
+Instalación en Kali: sudo apt install hashcat
+
+
+John the Ripper: Versátil para hashes y contraseñas.
+Instalación: sudo apt install john
+
+
+fcrackzip: Especializado en archivos ZIP protegidos.
+Instalación: sudo apt install fcrackzip
+
+
+hydra: Fuerza bruta en servicios web (HTTP, SSH, etc.).
+Instalación: sudo apt install hydra
+
+
+jwt_tool: Ataca tokens JWT.
+Instalación: git clone https://github.com/ticarpi/jwt_tool && pip install -r jwt_tool/requirements.txt
+
+
+patator: Fuerza bruta modular para múltiples protocolos.
+Instalación: sudo apt install patator
+
+
+Wordlists: Usa listas como rockyou.txt (Kali: /usr/share/wordlists/rockyou.txt.gz).
+Descomprimir: gunzip /usr/share/wordlists/rockyou.txt.gz
+
+
+
+3. Fuerza Bruta en Criptografía
+En criptografía, la fuerza bruta se usa para romper hashes, claves de cifrado débiles, o contraseñas de cifrados clásicos.
+3.1. Romper Hashes (MD5, SHA1, etc.)
+
+Identificación: Hashes tienen longitud fija (MD5: 32 hex, SHA1: 40 hex).
+
+Hashcat:
+hashcat -m 0 -a 0 hash.txt /usr/share/wordlists/rockyou.txt
+
+
+-m 0: Modo MD5 (otros: 100=SHA1, 1400=SHA256).
+-a 0: Ataque de diccionario.
+hash.txt: Archivo con el hash (ej. 5d41402abc4b2a76b9719d911017c592).
+
+
+John the Ripper:
+john --format=raw-md5 hash.txt
+
+
+Muestra contraseñas con: john --show hash.txt
+
+
+Optimización:
+
+Usa reglas para mutar palabras: hashcat -m 0 -a 0 hash.txt rockyou.txt -r /usr/share/hashcat/rules/best64.rule
+Prueba máscaras para contraseñas estructuradas: hashcat -m 0 -a 3 hash.txt ?l?l?l?d?d (?l=letra minúscula, ?d=dígito).
+
+
+
+3.2. Claves de Cifrados Clásicos (Vigenère, César)
+
+Vigenère:
+
+Usa Cryptii o dCode para probar claves cortas.
+Script Python para fuerza bruta:def vigenere_brute(text, max_key_len=5):
+    for key_len in range(1, max_key_len + 1):
+        for key in [''.join(chr(i) for i in range(65, 91))[:key_len] for _ in range(26**key_len)]:
+            decrypted = ''.join(chr((ord(c) - ord(key[i % len(key)])) % 26 + 65) if c.isupper() else c for i, c in enumerate(text.upper()))
+            if 'flag' in decrypted.lower():
+                print(f"Clave: {key}, Texto: {decrypted}")
+vigenere_brute("Rijvs uyvjn")
+
+
+
+
+César:
+
+Prueba todos los desplazamientos (1-25):for i in {1..25}; do echo "ROT$i: $(echo 'Khoor zruog' | tr 'A-Za-z' 'B-ZA-Yb-za-y' | tr 'A-Za-z' 'B-ZA-Yb-za-y' | ... )"; done
+
+
+O usa CyberChef (ROT13/ROT Brute Force).
+
+
+
+3.3. Claves Débiles en Cifrados Modernos
+
+RSA: Usa RsaCtfTool para claves débiles.python3 RsaCtfTool.py -n <modulus> -e <exponent> --uncipher <ciphertext>
+
+
+AES: Raro en CTF, pero prueba claves comunes con pycryptodome en Python.
+
+4. Fuerza Bruta en Forense
+En forense, la fuerza bruta desbloquea archivos protegidos (ZIP, PDF, imágenes esteganográficas) o recupera contraseñas de volcados.
+4.1. Archivos ZIP Protegidos
+
+fcrackzip:
+fcrackzip -u -D -p /usr/share/wordlists/rockyou.txt evidence.zip
+
+
+-u: Verifica la contraseña.
+-D: Usa diccionario.
+-p: Ruta al diccionario.
+
+
+John the Ripper:
+
+Extrae hash del ZIP:  zip2john evidence.zip > zip_hash.txt
+
+
+Ataca el hash:  john zip_hash.txt
+
+
+
+
+Optimización:
+
+Si sabes parte de la contraseña, usa máscaras: fcrackzip -u -c a1 -l 4-8 evidence.zip (a=letras, 1=números).
+
+
+
+4.2. PDFs Protegidos
+
+pdfcrack:pdfcrack -f evidence.pdf --wordlist=/usr/share/wordlists/rockyou.txt
+
+
+Alternativa: Convierte PDF a hash con pdf2john y usa John.
+
+
+
+4.3. Esteganografía (Steghide)
+
+Steghide:steghide extract -sf evidence.jpg -xf output.txt -p <password>
+
+
+Fuerza bruta con diccionario:for pass in $(cat /usr/share/wordlists/rockyou.txt); do steghide extract -sf evidence.jpg -xf output.txt -p "$pass" && echo "Contraseña: $pass"; done
+
+
+
+
+
+4.4. Volcados de Memoria
+
+Volatility con contraseñas de usuarios:
+Extrae hashes de Windows:  volatility -f memory.dump --profile=Win7SP1x64 hashdump
+
+
+Usa Hashcat:  hashcat -m 1000 -a 0 ntlm_hashes.txt rockyou.txt
+
+
+-m 1000: NTLM hashes.
+
+
+
+5. Fuerza Bruta en Web
+En web, la fuerza bruta ataca credenciales, tokens JWT, o parámetros vulnerables.
+5.1. Credenciales de Login
+
+Hydra (HTTP POST):
+hydra -l admin -P /usr/share/wordlists/rockyou.txt http-post-form "target.com/login:username=^USER^&password=^PASS^:Invalid"
+
+
+-l: Nombre de usuario.
+-P: Diccionario.
+:Invalid: Mensaje de error al fallar.
+
+
+Patator:
+patator http_fuzz url=http://target.com/login method=POST body='username=admin&password=FILE0' 0=rockyou.txt accept_cookie=1 follow=1 -x ignore:fgrep='Invalid'
+
+
+Burp Suite Intruder:
+
+Captura la solicitud POST en Burp.
+Envía a Intruder, configura el campo password con rockyou.txt.
+Analiza respuestas para detectar códigos HTTP 200 o mensajes de éxito.
+
+
+
+5.2. Tokens JWT
+
+jwt_tool:
+
+Prueba contraseñas débiles:  python3 jwt_tool.py -t eyJ... -C -p /usr/share/wordlists/rockyou.txt
+
+
+-C: Crackea la clave HMAC.
+-p: Diccionario.
+
+
+Verifica algoritmos débiles (HS256 → none):  python3 jwt_tool.py -t eyJ... -M pb
+
+
+-M pb: Prueba bypass (algoritmo none o claves vacías).
+
+
+
+
+Optimización:
+
+Si el token usa HS256, prueba claves comunes como secret, password, o el nombre del sitio.
+Usa jwt.io para decodificar y analizar el payload.
+
+
+
+5.3. Parámetros URL o Formularios
+
+ffuf:
+ffuf -u http://target.com/page.php?id=FUZZ -w /usr/share/wordlists/rockyou.txt -fc 403
+
+
+-fc 403: Ignora respuestas 403.
+
+
+Burp Suite Intruder:
+
+Configura payloads para parámetros GET/POST.
+Filtra respuestas por longitud o contenido.
+
+
+
+6. Consejos Generales
+
+Diccionarios Efectivos:
+
+Usa rockyou.txt para contraseñas comunes.
+Crea diccionarios personalizados con palabras del reto (ej. nombre del CTF, tema).
+Combina con reglas: hashcat -a 0 hash.txt rockyou.txt -r rules/dive.rule
+
+
+Optimización:
+
+Prioriza GPU con Hashcat para acelerar: hashcat --force -m 0 hash.txt rockyou.txt.
+Reduce el diccionario: grep -E '^.{4,8}$' rockyou.txt > short.txt (contraseñas de 4-8 caracteres).
+Usa máscaras basadas en pistas: hashcat -a 3 -m 0 hash.txt flag?d?d?d (formato flag123).
+
+
+Evita Bloqueos:
+
+En web, usa retrasos: hydra -t 4 (4 hilos).
+Rota User-Agents o proxies: patator ... --proxy=http://127.0.0.1:8080.
+
+
+Documentación:
+
+Registra contraseñas encontradas y comandos:  script brute_log.txt
+
+
+
+
+Práctica:
+
+Resuelve retos en CrackStation para hashes.
+Usa HackTheBox para escenarios web y forense.
+
+
+
+7. Ejemplo Práctico
+Escenario: Tienes un ZIP protegido (evidence.zip) y un hash MD5 (5d41402abc4b2a76b9719d911017c592).
+
+Hash MD5:
+echo "5d41402abc4b2a76b9719d911017c592" > hash.txt
+hashcat -m 0 -a 0 hash.txt /usr/share/wordlists/rockyou.txt
+
+Salida: Contraseña hello.
+
+ZIP:
+fcrackzip -u -D -p /usr/share/wordlists/rockyou.txt evidence.zip
+
+O con la contraseña encontrada:
+unzip -P hello evidence.zip
+
+
+Verifica Contenido:
+cat extracted/flag.txt
+
+Salida: flag{BruteForceSuccess}.
+

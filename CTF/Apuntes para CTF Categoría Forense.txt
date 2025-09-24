@@ -1,0 +1,414 @@
+Apuntes para CTF: Categoría Forense
+1. Contexto: Kali Linux en la Competencia
+En la competencia, usarás máquinas con Kali Linux, una distribución diseñada para pentesting y análisis forense. Kali incluye herramientas preinstaladas como Autopsy, The Sleuth Kit (TSK), Binwalk, Foremost, Volatility, y otras, ideales para resolver retos forenses.
+2. Flujo de Investigación Forense
+Una investigación forense en CTF implica identificar, preservar, analizar y documentar evidencia digital. A continuación, se detalla un flujo con comandos básicos y avanzados, desde la identificación de archivos hasta la recuperación avanzada.
+2.1. Identificación del Tipo de Archivo
+El primer paso es determinar qué tipo de archivo estás analizando, ya que la extensión puede ser engañosa.
+
+file: Identifica el tipo de archivo basado en su contenido.  
+file evidence.bin
+
+
+Ejemplo de salida: evidence.bin: PNG image data, 800 x 600, 8-bit/color RGB.
+
+
+Advanced: Usa file con opciones para más detalles.  
+file -i evidence.bin
+
+
+-i: Muestra el tipo MIME (ej. image/png; charset=binary).
+
+
+Trid: Alternativa a file con una base de datos más extensa (instalable en Kali).  
+sudo apt install trid
+trid evidence.bin
+
+
+Muestra probabilidades de tipos de archivo.
+
+
+
+2.2. Verificación de Integridad
+Asegúrate de que la evidencia no ha sido alterada calculando y comparando hashes.
+
+md5sum / sha1sum: Calcula hashes.  
+md5sum evidence.bin > evidence.md5
+sha1sum evidence.bin > evidence.sha1
+
+
+Compara con un hash proporcionado:  md5sum -c evidence.md5
+
+
+
+
+Advanced: Usa hashcat para verificar integridad en múltiples archivos.  
+find /evidence_folder -type f -exec md5sum {} \; > hashes.txt
+hashcat --quiet -m 0 hashes.txt
+
+
+
+2.3. Análisis de Cabeceras y Estructura
+Revisa las cabeceras en hexadecimal para confirmar el tipo de archivo o detectar anomalías.
+
+xxd: Muestra el contenido en hexadecimal.  
+xxd -l 16 evidence.bin
+
+
+-l 16: Limita a los primeros 16 bytes (cabecera).
+
+
+hexdump: Formato alternativo.  
+hexdump -C -n 16 evidence.bin
+
+
+Advanced: Usa bless (GUI) para inspeccionar visualmente.  
+sudo apt install bless
+bless evidence.bin
+
+
+Cabeceras Comunes:
+
+
+
+Formato
+Cabecera Hexadecimal
+Descripción
+
+
+
+JPEG
+FF D8 FF E0 o FF D8 FF E1
+Imagen JPEG/JFIF o EXIF
+
+
+PNG
+89 50 4E 47 0D 0A 1A 0A
+Imagen PNG
+
+
+PDF
+25 50 44 46
+Documento PDF
+
+
+ZIP
+50 4B 03 04
+Archivo ZIP
+
+
+ELF
+7F 45 4C 46
+Ejecutable Linux (ELF)
+
+
+
+
+2.4. Extracción de Metadatos
+Los metadatos pueden contener pistas como nombres de usuario, fechas, o incluso flags.
+
+exiftool: Analiza metadatos de imágenes, PDFs, etc.  
+exiftool evidence.jpg
+
+
+Advanced: Filtra metadatos específicos.  
+exiftool -Comment evidence.jpg
+
+
+Busca comentarios ocultos.
+
+
+mediainfo: Para archivos multimedia.  
+mediainfo evidence.mp4
+
+
+
+2.5. Análisis de Contenido
+Busca cadenas legibles o estructuras internas para encontrar pistas.
+
+strings: Extrae cadenas ASCII/Unicode.  
+strings evidence.bin | grep -i flag
+
+
+-i: Ignora mayúsculas/minúsculas.
+
+
+Advanced: Usa strings con codificaciones específicas.  
+strings -e l evidence.bin
+
+
+-e l: Codificación UTF-16 little-endian.
+
+
+binwalk: Analiza y extrae contenido embebido (firmware, imágenes, etc.).  
+binwalk evidence.bin
+
+
+Muestra firmas de archivos embebidos.
+
+binwalk -e evidence.bin
+
+
+-e: Extrae automáticamente a un directorio (_evidence.bin.extracted).
+
+
+Advanced: Extrae secciones específicas con Binwalk.  
+binwalk -D 'png:image.png' evidence.bin
+
+
+-D: Extrae solo archivos PNG.
+
+
+
+2.6. Recuperación de Archivos Eliminados
+Usa herramientas de data carving para recuperar archivos basados en cabeceras.
+
+Foremost: Recupera archivos por firmas.  
+foremost -t jpg,pdf,zip -i evidence.dd -o /home/user/recovered
+
+
+-t: Tipos de archivo.
+-i: Imagen de entrada.
+-o: Directorio de salida.
+
+
+Scalpel: Similar a Foremost, pero más configurable.  
+scalpel -c /etc/scalpel/scalpel.conf -i evidence.dd -o /home/user/recovered
+
+
+Edita /etc/scalpel/scalpel.conf para definir cabeceras personalizadas.
+
+
+Advanced: Usa photorec para recuperación interactiva.  
+photorec evidence.dd
+
+
+Selecciona particiones y tipos de archivo en la interfaz.
+
+
+
+2.7. Análisis de Sistema de Archivos
+Si la evidencia es una imagen de disco, analiza su estructura.
+
+fsstat: Muestra detalles del sistema de archivos (TSK).  
+fsstat evidence.dd
+
+
+fls: Lista archivos y directorios, incluidos eliminados.  
+fls -r -p evidence.dd
+
+
+-r: Recursivo.
+-p: Rutas completas.
+
+
+icat: Extrae un archivo por su inode.  
+icat evidence.dd 12345 > extracted_file
+
+
+Advanced: Recupera particiones ocultas con testdisk.  
+testdisk evidence.dd
+
+
+Sigue la interfaz para restaurar particiones.
+
+
+
+2.8. Análisis de Memoria
+Si tienes un volcado de memoria, usa Volatility.
+
+volatility: Identifica el perfil del sistema.  
+volatility -f memory.dump imageinfo
+
+
+Lista procesos:  
+volatility -f memory.dump --profile=Win7SP1x64 pslist
+
+
+Advanced: Extrae archivos desde la memoria.  
+volatility -f memory.dump --profile=Win7SP1x64 dumpfiles -D /home/user/dump
+
+
+
+2.9. Creación de Imágenes Forenses
+Preserva la evidencia con copias bit a bit.
+
+dd: Copia exacta.  
+dd if=/dev/sda of=/home/user/evidence.dd bs=64k conv=noerror,sync
+
+
+dc3dd: Incluye hash.  
+dc3dd if=/dev/sda of=/home/user/evidence.dd hof=/home/user/evidence_hash.md5
+
+
+
+3. Guía de Uso de Autopsy en Kali Linux
+Autopsy es una interfaz gráfica para TSK y otras herramientas, ideal para análisis de imágenes de disco.
+3.1. Instalación
+sudo apt update
+sudo apt install autopsy
+
+3.2. Iniciar Autopsy
+autopsy
+
+
+Accede a http://localhost:9999/autopsy en un navegador.
+Si el puerto está ocupado:  fuser -k 9999/tcp
+
+
+
+3.3. Crear un Caso
+
+New Case: Ingresa nombre (ej. CTF_Forense_2025), descripción, e investigador.
+Add Host: Nombre del sistema (ej. Victim_Machine).
+Add Image: Ruta al archivo (ej. /home/user/evidence.dd).
+
+3.4. Análisis
+
+File Analysis: Navega archivos y metadatos.
+Keyword Search: Busca flag{, contraseñas, etc.
+Timeline: Revisa eventos cronológicos.
+Data Carving: Recupera archivos eliminados.
+Reports: Exporta en HTML/XML.
+
+3.5. Consejos
+
+Usa copias de la evidencia.
+Documenta con capturas.
+Combina con TSK para análisis CLI.
+
+4. Revisión y Modificación de Cabeceras
+Las cabeceras identifican el tipo de archivo. Modifícalas para reparar archivos o engañar sistemas.
+4.1. Revisión
+
+xxd:  xxd -l 16 evidence.jpg
+
+
+hexdump:  hexdump -C -n 16 evidence.jpg
+
+
+
+4.2. Modificación
+
+hexedit:  hexedit evidence.jpg
+
+
+xxd con echo:  echo -n -e '\x89\x50\x4E\x47' | dd of=evidence.jpg bs=1 seek=0 conv=notrunc
+
+
+
+4.3. Ejemplo
+Si xxd muestra 00 00 00 00 en lugar de 89 50 4E 47 para un PNG:  
+echo -n -e '\x89\x50\x4E\x47' | dd of=evidence.bin bs=1 seek=0 conv=notrunc
+
+5. Scripts en Python para Análisis Forense
+Python es poderoso para automatizar tareas forenses. Aquí tienes ejemplos interesantes.
+5.1. Verificar Cabeceras
+#!/usr/bin/python3
+import binascii
+
+def check_header(file_path):
+    signatures = {
+        'PNG': b'89504e47',
+        'JPEG': b'ffd8ffe0',
+        'PDF': b'25504446',
+    }
+    
+    with open(file_path, 'rb') as f:
+        header = f.read(4)
+        hex_header = binascii.hexlify(header)
+        
+        for file_type, sig in signatures.items():
+            if hex_header.startswith(sig):
+                print(f"Archivo identificado como {file_type}")
+                return
+        print("Cabecera desconocida:", hex_header)
+
+check_header('evidence.bin')
+
+
+Guarda como check_header.py y ejecuta:  python3 check_header.py
+
+
+
+5.2. Recuperar JPEGs de una Imagen de Disco
+#!/usr/bin/python3
+import re
+
+def carve_jpegs(disk_image, output_dir):
+    jpeg_start = b'\xff\xd8\xff\xe0'
+    jpeg_end = b'\xff\xd9'
+    
+    with open(disk_image, 'rb') as f:
+        data = f.read()
+    
+    start_positions = [m.start() for m in re.finditer(re.escape(jpeg_start), data)]
+    
+    for i, start in enumerate(start_positions):
+        end = data.find(jpeg_end, start) + 2
+        if end > start:
+            jpeg_data = data[start:end]
+            with open(f"{output_dir}/recovered_{i}.jpg", 'wb') as out:
+                out.write(jpeg_data)
+            print(f"Extraído: recovered_{i}.jpg")
+
+carve_jpegs('evidence.dd', '/home/user/recovered')
+
+
+Ejecuta:  python3 carve_jpegs.py
+
+
+Busca JPEGs basándose en cabeceras y pies.
+
+5.3. Extraer Metadatos con Exiftool
+#!/usr/bin/python3
+import subprocess
+import json
+
+def extract_metadata(file_path):
+    result = subprocess.run(['exiftool', '-j', file_path], capture_output=True, text=True)
+    metadata = json.loads(result.stdout)[0]
+    
+    for key, value in metadata.items():
+        if 'flag' in str(value).lower():
+            print(f"Pista encontrada: {key}: {value}")
+        else:
+            print(f"{key}: {value}")
+
+extract_metadata('evidence.jpg')
+
+
+Requiere exiftool. Ejecuta:  python3 extract_metadata.py
+
+
+
+6. Técnicas Interesantes para CTF
+
+Esteganografía: Usa steghide para extraer datos ocultos en imágenes.  
+steghide extract -sf evidence.jpg
+
+
+Prueba contraseñas comunes o cadenas encontradas con strings.
+
+
+Análisis de PCAP: Usa Wireshark o tshark para analizar tráfico de red.  
+tshark -r evidence.pcap -Y "http.request" -T fields -e http.request.uri
+
+
+Reverse Shell Detection: Busca conexiones sospechosas en volcados de memoria.  
+volatility -f memory.dump --profile=Win7SP1x64 netscan
+
+
+ZIP con Contraseña: Usa fcrackzip para romper contraseñas.  
+fcrackzip -u -D -p /usr/share/wordlists/rockyou.txt evidence.zip
+
+
+
+7. Consejos Generales
+
+Preserva la Evidencia: Trabaja con copias.  
+Documenta: Usa script para grabar la terminal:  script forense_log.txt
+
+
+Automatiza: Escribe scripts para tareas repetitivas.  
+Práctica: Usa retos de HackTheBox o DFIR Training.

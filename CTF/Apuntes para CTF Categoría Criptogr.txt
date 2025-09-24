@@ -1,0 +1,310 @@
+Apuntes para CTF: Categoría Criptografía
+1. Introducción
+En los retos de criptografía de CTF, el objetivo suele ser identificar el algoritmo de cifrado usado, descifrar un texto cifrado para obtener una bandera (flag), o explotar debilidades en la implementación. La clave está en reconocer patrones visuales, longitudes, y caracteres específicos en el texto cifrado.
+2. Identificación de Algoritmos de Cifrado
+A continuación, se describen los algoritmos más comunes en CTF, con pistas para identificarlos y ejemplos.
+2.1. Codificaciones (No Cifrado, Solo Transformación)
+
+Base64:
+
+Pistas: Usa el alfabeto A-Z, a-z, 0-9, +, /. Generalmente termina en = o ==. Longitud divisible por 4.
+Ejemplo: SGVsbG8gd29ybGQ= → Hello world.
+Identificación: Si ves = al final y caracteres alfanuméricos con + o /, es probable Base64.
+Comando:  echo "SGVsbG8gd29ybGQ=" | base64 -d
+
+
+
+
+Base32:
+
+Pistas: Usa A-Z y 2-7 (sin 0, 1, 8, 9). Termina en = (hasta 6). Longitud divisible por 8.
+Ejemplo: JBSWY3DPEHPK3PXP====== → Hello world.
+Identificación: Menos caracteres que Base64, sin dígitos 0, 1, 8, 9.
+Comando:  echo "JBSWY3DPEHPK3PXP======" | base32 -d
+
+
+
+
+Base85 (ASCII85):
+
+Pistas: Usa caracteres imprimibles ASCII (del ! al u, códigos 33 a 117). No usa = al final. Más compacto que Base64.
+Ejemplo: 87cURD]j → Hello.
+Identificación: Caracteres consecutivos en la tabla ASCII, sin =.
+Herramienta: CyberChef o Python con base64.a85decode.
+
+
+Hexadecimal:
+
+Pistas: Usa 0-9 y a-f (o A-F). Longitud par. A menudo se escribe como 0x o sin espacios.
+Ejemplo: 48656c6c6f → Hello.
+Identificación: Solo dígitos y letras a-f, longitud par.
+Comando:  echo "48656c6c6f" | xxd -r -p
+
+
+
+
+ASCII (Decimal/Octal):
+
+Pistas: Secuencia de números (ej. 72 101 108 108 111 para decimal o 110 145 154 154 157 para octal).
+Ejemplo: 72 101 108 108 111 → Hello.
+Identificación: Lista de números separados por espacios, en rango 32-126 (ASCII imprimible).
+Python:  ''.join(chr(int(x)) for x in '72 101 108 108 111'.split())
+
+
+
+
+
+2.2. Cifrados de Sustitución
+
+ROT13 (César con rotación 13):
+
+Pistas: Solo letras A-Z (sin números ni símbolos). Parece texto legible, pero desplazado. ROT13 es su propio inverso.
+Ejemplo: Uryyb jbeyq → Hello world.
+Identificación: Si aplicas ROT13 y obtienes texto legible, es ROT13. Usa herramientas para probar otros desplazamientos (ROT1 a ROT25).
+Comando:  echo "Uryyb jbeyq" | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+
+
+
+
+Cifrado César (ROT arbitrario):
+
+Pistas: Similar a ROT13, pero con cualquier desplazamiento (1-25). Frecuencia de letras similar al idioma (ej. E es común en inglés).
+Ejemplo: Khoor zruog (ROT3) → Hello world.
+Identificación: Prueba desplazamientos con herramientas o analiza frecuencias.
+Python:  def caesar(text, shift):
+    return ''.join(chr((ord(c) - 65 + shift) % 26 + 65) if c.isupper() else chr((ord(c) - 97 + shift) % 26 + 97) if c.islower() else c for c in text)
+print(caesar("Khoor zruog", -3))
+
+
+
+
+Atbash:
+
+Pistas: Invierte el alfabeto (A → Z, B → Y, etc.). Solo letras, parece ROT13 pero inverso.
+Ejemplo: Svool dliow → Hello world.
+Identificación: Aplica Atbash (es su propio inverso) y verifica si da texto legible.
+Python:  def atbash(text):
+    return ''.join(chr(90 - (ord(c) - 65)) if c.isupper() else chr(122 - (ord(c) - 97)) if c.islower() else c for c in text)
+print(atbash("Svool dliow"))
+
+
+
+
+
+2.3. Cifrados de Transposición
+
+Rail Fence:
+
+Pistas: Letras reordenadas en un patrón de zigzag. Longitud divisible por el número de "rieles".
+Ejemplo: Hloolwrdel (3 rieles) → Hello world.
+Identificación: Prueba descifradores con 2-5 rieles. Busca patrones de letras alternadas.
+Herramienta: dCode o CyberChef (Rail Fence Cipher).
+
+
+Columnar Transposition:
+
+Pistas: Letras reordenadas por columnas según una clave. Longitud divisible por la longitud de la clave.
+Ejemplo: eHlolow rld → Hello world.
+Identificación: Reorganiza en una matriz y prueba claves cortas (3-8 letras).
+Herramienta: CyberChef o Python con script personalizado.
+
+
+
+2.4. Cifrados Clásicos
+
+Vigenère:
+
+Pistas: Solo letras, parece aleatorio pero con repeticiones (debido a la clave). Longitud de clave detectable con análisis de Kasiski.
+Ejemplo: Rijvs uyvjn (clave key) → Hello world.
+Identificación: Usa análisis de frecuencia o autocorrelación para estimar la longitud de la clave. Prueba claves comunes (key, password).
+Herramienta: dCode (Vigenère Solver) o CyberChef.
+Python:  def vigenere_decrypt(text, key):
+    key = key.upper()
+    return ''.join(chr((ord(c) - ord(key[i % len(key)])) % 26 + 65) if c.isupper() else c for i, c in enumerate(text.upper()))
+print(vigenere_decrypt("Rijvs uyvjn", "key"))
+
+
+
+
+Substitution Cipher:
+
+Pistas: Letras reemplazadas por otras letras o símbolos, pero preservando la frecuencia del idioma.
+Ejemplo: Ifmmp xpsme → Hello world.
+Identificación: Analiza frecuencias (ej. E es la más común en inglés). Usa mapeo manual o herramientas.
+Herramienta: dCode (Monoalphabetic Substitution).
+
+
+
+2.5. Cifrados Modernos (Básicos en CTF)
+
+MD5/SHA1 (Hashes):
+
+Pistas: Longitud fija (MD5: 32 hex, SHA1: 40 hex). Parece aleatorio, no reversible.
+Ejemplo: 5d41402abc4b2a76b9719d911017c592 (MD5) → hello.
+Identificación: Longitud y formato hexadecimal. Busca en bases de datos de hashes.
+Comando:  echo -n "hello" | md5sum
+
+
+Herramienta: CrackStation, Hashcat.
+
+
+AES/RSA (Rara vez en CTF):
+
+Pistas: Texto cifrado en Base64 o hex, acompañado de una clave pública, IV, o módulo. Requiere implementación débil (ej. clave corta).
+Ejemplo: Cifrado AES en modo ECB con clave conocida.
+Identificación: Busca términos como public key, modulus, o IV. Usa scripts para explotar.
+Herramienta: CyberChef o Python con pycryptodome.
+
+
+
+3. Herramientas Funcionales para Criptografía
+Además de dCode y CyberChef, aquí tienes herramientas útiles para CTF:
+
+Cryptii (https://cryptii.com):
+
+Interfaz web modular similar a CyberChef.
+Soporta Base64, ROT13, Vigenère, y más.
+Útil para pruebas rápidas y conversiones.
+
+
+CrackStation (https://crackstation.net):
+
+Base de datos de hashes (MD5, SHA1, SHA256).
+Ideal para buscar hashes precomputados.
+Ejemplo: Pega 5d41402abc4b2a76b9719d911017c592 para obtener hello.
+
+
+Hashcat:
+
+Herramienta CLI para romper hashes.
+Instalación en Kali:  sudo apt install hashcat
+
+
+Ejemplo (MD5 con diccionario):  hashcat -m 0 -a 0 hash.txt /usr/share/wordlists/rockyou.txt
+
+
+-m 0: Modo MD5.
+-a 0: Ataque de diccionario.
+
+
+John the Ripper:
+
+Alternativa a Hashcat para hashes y contraseñas.
+Ejemplo:  john --format=raw-md5 hash.txt
+
+
+
+
+Quipqiup (https://quipqiup.com):
+
+Resuelve cifrados de sustitución monoalfabética automáticamente.
+Útil para textos largos con frecuencia similar al inglés.
+
+
+Boxentriq (https://www.boxentriq.com/code-breaking):
+
+Colección de herramientas para cifrados clásicos (César, Vigenère, Atbash).
+Incluye analizadores de frecuencia y calculadoras.
+
+
+RsaCtfTool:
+
+Herramienta para explotar debilidades en RSA (instalable en Kali).
+Ejemplo:  git clone https://github.com/RsaCtfTool/RsaCtfTool.git
+cd RsaCtfTool
+python3 RsaCtfTool.py -n <modulus> -e <exponent> --uncipher <ciphertext>
+
+
+
+
+FeatherDuster:
+
+Herramienta Python para análisis criptográfico automatizado.
+Instalación:  pip install featherduster
+
+
+Ejemplo:  featherduster ciphertext.txt
+
+
+Detecta Base64, ROT13, y otros.
+
+
+Online Barcode Decoder (https://online-barcode-reader.inliteresearch.com):
+
+Útil para retos con códigos QR o de barras en imágenes.
+Sube la imagen y extrae el texto codificado.
+
+
+
+4. Técnicas y Consejos para CTF
+
+Patrones Visuales:
+
+= al final → Base64 o Base32.
+Solo letras → ROT13, César, Atbash, Vigenère.
+Hexadecimal fijo (32/40/64) → MD5, SHA1, SHA256.
+Números separados → ASCII decimal/octal.
+
+
+Prueba Rápida:
+
+Pega el texto en CyberChef y aplica operaciones comunes (Base64 Decode, ROT13, Hex to Text).
+Usa dCode para identificar automáticamente (opción "Cipher Identifier").
+
+
+Análisis de Frecuencia:
+
+En inglés, E, T, A son las letras más comunes. Usa Boxentriq o CyberChef para graficar frecuencias.
+Ejemplo: Si X aparece mucho en el texto cifrado, podría ser E en un cifrado de sustitución.
+
+
+Claves Comunes:
+
+Prueba claves como key, password, flag, o el nombre del reto.
+En Vigenère, busca repeticiones para estimar la longitud de la clave.
+
+
+Múltiples Capas:
+
+Los retos suelen combinar cifrados (ej. Base64 → ROT13 → Hex).
+Descifra paso a paso y verifica si el resultado es legible.
+
+
+Automatización:
+
+Escribe scripts en Python para probar múltiples ROT o descifrar Vigenère con claves comunes.
+Ejemplo (prueba todos los desplazamientos César):  def try_all_caesar(text):
+    for shift in range(1, 26):
+        print(f"ROT{shift}: {caesar(text, -shift)}")
+try_all_caesar("Khoor zruog")
+
+
+
+
+Documentación:
+
+Guarda los textos cifrados, claves, y resultados en un archivo.
+Usa script para grabar tu terminal:  script crypto_log.txt
+
+
+
+
+
+5. Ejemplo Práctico
+Texto Cifrado: R3JvdTEzd2VsYzBtZQ==
+
+Identificación: Termina en ==, parece Base64.
+Decodificar:  echo "R3JvdTEzd2VsYzBtZQ==" | base64 -d
+
+Salida: Grou13welc0me.
+Análisis: Parece ROT13 en la parte welc0me.
+Aplicar ROT13:  echo "welc0me" | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+
+Salida: welcome.
+Resultado: La bandera podría ser Grou13welcome.
+
+6. Notas Finales
+
+Práctica: Resuelve retos en CryptoHack o OverTheWire.
+Recursos: Consulta Practical Cryptography para frecuencias y algoritmos.
+Kali Tools: Usa hashcat, john, y featherduster para automatizar.
