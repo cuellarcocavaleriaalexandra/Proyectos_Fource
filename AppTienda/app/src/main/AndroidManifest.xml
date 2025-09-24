@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.pedidosapp">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.PedidosApp"
+        tools:targetApi="31">
+        <activity
+            android:name=".IntegrantesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VerTodosPedidosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LimpiezaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ModeAdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VerTodosProductosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EnlatadosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LicoresActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SnacksActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CongeladosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CarnesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LacteosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PanaderiaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BebidasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AuthActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
