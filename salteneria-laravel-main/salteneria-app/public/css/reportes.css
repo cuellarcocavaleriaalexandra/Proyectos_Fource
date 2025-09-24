@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #f4f4f4;
+}
+
+.main-content {
+    margin-left: 200px;
+    padding: 20px;
+    width: calc(100% - 200px);
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #3498db;
+}
+
+th,
+td {
+    padding: 12px;
+    border: 2px solid #3498db;
+}
+
+th {
+    background-color: #3498db;
+    color: white;
+}
+
+.filter-buttons a {
+    margin-right: 10px;
+    padding: 10px 20px;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.filter-buttons a.active {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Asegura que cada columna tenga un tamaño proporcional */
+    border: 2px solid #3498db;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border: 2px solid #3498db;
+    overflow: hidden; /* Previene que el contenido desborde */
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    text-overflow: ellipsis; /* Añade "..." si el contenido es demasiado largo */
+}
+
+th {
+    background-color: #3498db;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #e1e1e1;
+}
+
+.col-dia {
+    width: 50%; /* Ajuste proporcional de las columnas */
+}
+
+.col-cantidad,
+.col-total-dia {
+    width: 25%; /* Asegura que estas columnas ocupen el mismo espacio */
+}
+
+.btn-descargar-pdf {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-descargar-pdf:hover {
+    background-color: #1e8449;
+}
