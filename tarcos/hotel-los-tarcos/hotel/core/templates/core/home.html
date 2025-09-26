@@ -1,0 +1,382 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="">
+<section
+        class="flex flex-col items-center justify-center gap-8 bg-cover bg-center p-6 sm:p-8 text-center text-white box-border"
+        style='min-height: calc(100vh - 89px); background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url("{% static 'images/base/portada_sucre.webp' %}");'>
+        <h1 class="font-['Source_Serif_Pro'] text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight">
+            <span>Los Tarcoss</span><br>
+            <span class="text-2xl sm:text-4xl md:text-5xl font-normal">Hotel</span>
+        </h1>
+
+        <a href="{% url 'reservas' %}" 
+        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden 
+                rounded-lg h-12 px-8 border border-white text-white text-base font-bold leading-normal 
+                tracking-[0.015em] bg-transparent hover:bg-purple-600 hover:border-purple-600 transition-colors">
+            <span class="truncate">Reservar ahora</span>
+        </a>
+</section>
+
+    <!-- Sección: Historia del hotel con fondo similar a servicios -->
+    <section class="relative flex flex-col md:flex-row items-center justify-between gap-12 py-16 md:py-20 max-w-7xl mx-auto px-6 md:px-10 lg:px-20 rounded-lg shadow-xl mt-8 overflow-hidden">
+        
+        <!-- Contenido principal -->
+        <div class="relative z-10 md:w-1/2 text-left">
+            <div class="mb-6">
+                <div class="inline-block bg-purple-100/90 backdrop-blur-sm text-purple-700 text-sm font-medium px-4 py-2 rounded-full mb-4 shadow-sm">
+                    Conoce nuestra historia
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-stone-800 mb-6">¿Quiénes somos?</h2>
+            </div>
+            <p class="text-lg text-stone-700 mb-4">
+                Bienvenido al <b>Los Tarcoss Hotel</b>, un refugio de elegancia y confort en el corazón de Sucre, Bolivia. Nuestro nombre rinde homenaje al emblemático árbol <b>Tarco</b>, cuya vibrante presencia adorna las calles y paisajes de esta histórica ciudad, simbolizando arraigo y belleza natural.
+            </p>
+            <p class="text-lg text-stone-700">
+                En Los Tarcoss, combinamos la calidez de la hospitalidad boliviana con instalaciones modernas para ofrecerte una experiencia inolvidable, perfecta para explorar la rica cultura y el encanto colonial de Sucre.
+            </p>
+        </div>
+                 
+        <div class="relative z-10 md:w-1/2 flex justify-center">
+            <div class="relative group">
+                <div class="relative p-[4px] rounded-lg">
+                    <img src="{% static 'images/base/fachada_noche.jpg'%}"
+                          alt="Hotel Los Tarcoss"
+                          class="rounded-lg w-full max-w-md object-cover shadow-lg" />
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <div class="bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+                            <p class="text-stone-800 font-semibold text-sm">Los Tarcoss Hotel</p>
+                            <p class="text-stone-600 text-xs">Sucre, Bolivia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Fin sección historia -->
+    <section class="relative max-w-7xl mx-auto px-6 md:px-10 lg:px-20 mt-8">
+        <div class="relative shadow-xl overflow-hidden py-8 px-8">
+            
+            <!-- Imagen de fondo del árbol tarco -->
+            <div class="absolute inset-0 z-0">
+                <img src="{% static 'images/base/tarco_flor.webp'%}"
+                    alt="Árbol Tarco"
+                    class="w-full h-full object-cover opacity-">
+                <div class="absolute inset-0 bg-gradient-to-br from-stone-50/70 via-gray-50/60 to-stone-100/70"></div>
+            </div>
+            
+            <!-- Contenido de la sección del tarco -->
+            <div class="relative z-10 text-center max-w-4xl mx-auto">               
+                <h2 class="text-xl sm:text-3xl font- tracking-tight text-stone-800 text-left mb-2"> El Árbol Tarco</h2>
+                <div class="grid md:grid-cols-1 gap-8 items-center">
+                    <div class="text-left">
+                        <p class="text-stone-700 text-lg leading-relaxed mb-2">
+                            El <span class="font-semibold">tarco</span> es el árbol emblemático de Sucre, 
+                            un símbolo natural que representa la <span class="font-semibold text-stone-800">identidad</span> 
+                            y el <span class="font-semibold text-stone-800">orgullo</span> de nuestra histórica ciudad.
+                        </p>
+                        <p class="text-stone-700 text-lg leading-relaxed">
+                            Su presencia majestuosa en nuestras calles crea un paisaje único que cautiva a visitantes de todo el mundo, 
+                            siendo un símbolo de <span class="font-semibold">belleza natural</span> y 
+                            <span class="font-semibold">arraigo cultural</span>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="mx-auto max-w-7xl px-4 md:px-10 lg:px-20">
+        <section class="py-12 sm:py-16">
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-stone-800 text-center mb-12">
+                <span class="text-xl sm:text-2xl font-normal">Nuestras</span></br> Habitaciones
+            </h2>
+            <main class="page-content">
+                <div class="card">
+                  <div class="content">
+                    <h2 class="title ">Matrimonial</h2>
+                    <p class="copy">Un espacio diseñado para el descanso en pareja o para quienes buscan mayor comodidad y privacidad.</p>
+                    <a href="{% url 'habitacion_matrimonial' %}" class="btn">Ver detalles</a>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="content">
+                    <h2 class="title">Triple</h2>
+                    <p class="copy">Perfecta para parejas o pequeños grupos, combina funcionalidad y confort. </p>
+                    <a href="{% url 'habitacion_triple' %}" class="btn">Ver detalles</a>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="content">
+                    <h2 class="title">Cuádruple</h2>
+                    <p class="copy">Elegante y funcional, diseñada para grupos pequeños o familias. </p>
+                    <a href="{% url 'habitacion_cuadruple' %}" class="btn">Ver detalles</a>
+                  </div>
+                </div>
+            </main>
+            <div class="text-center mt-8">
+                <a href="{% url 'habitaciones' %}" 
+                class="inline-block px-6 py-3 border border-black text-black font-bold rounded-lg 
+                        bg-transparent hover:bg-purple-600 hover:border-purple-600 hover:text-white transition-colors">
+                    Ver todas las habitaciones
+                </a>
+        </section>
+
+        <section class="py-12 sm:py-16 bg-stone-50 rounded-lg">
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-stone-800 text-center mb-12">
+                <span class="text-xl sm:text-2xl font-normal">Nuestros</span></br> Servicios
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 px-8">
+                <div class="flex flex-col items-center text-center gap-4">
+                    <div class="bg-[var(--primary-color)] text-white rounded-full w-12 h-12 flex items-center justify-center">
+                        <i class="fa-solid fa-square-parking text-xl"></i>
+                    </div>
+                    <h3 class="text-stone-800 text-lg font-bold leading-tight">Garaje</h3>
+                </div>
+                <div class="flex flex-col items-center text-center gap-4">
+                    <div class="bg-[var(--primary-color)] text-white rounded-full w-12 h-12 flex items-center justify-center">
+                        <i class="fas fa-wifi text-xl"></i>
+                    </div>
+                    <h3 class="text-stone-800 text-lg font-bold leading-tight">Wi-Fi</h3>
+                </div>
+                <div class="flex flex-col items-center text-center gap-4">
+                    <div class="bg-[var(--primary-color)] text-white rounded-full w-12 h-12 flex items-center justify-center">
+                        <i class="fa-solid fa-building-lock text-xl"></i>
+                    </div>
+                    <h3 class="text-stone-800 text-lg font-bold leading-tight">Cámaras</h3>
+                </div>
+                <div class="flex flex-col items-center text-center gap-4">
+                    <div class="bg-[var(--primary-color)] text-white rounded-full w-12 h-12 flex items-center justify-center">
+                        <i class="fa-solid fa-mug-saucer text-xl"></i>
+                    </div>
+                    <h3 class="text-stone-800 text-lg font-bold leading-tight">Desayuno</h3>
+                </div>
+                <div class="flex flex-col items-center text-center gap-4">
+                    <div class="bg-[var(--primary-color)] text-white rounded-full w-12 h-12 flex items-center justify-center">
+                        <i class="fa-solid fa-people-group text-xl"></i>
+                    </div>
+                    <h3 class="text-stone-800 text-lg font-bold leading-tight">Salón</h3>
+                </div>
+                <div class="flex flex-col items-center text-center gap-4">
+                    <div class="bg-[var(--primary-color)] text-white rounded-full w-12 h-12 flex items-center justify-center">
+                        <i class="fa-solid fa-car text-xl"></i>
+                    </div>
+                    <h3 class="text-stone-800 text-lg font-bold leading-tight">Recojo</h3>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="{% url 'servicios' %}" 
+                class="inline-block px-6 py-3 border border-black text-black font-bold rounded-lg 
+                        bg-transparent hover:bg-purple-600 hover:border-purple-600 hover:text-white transition-colors">
+                    Ver todos los servicios
+                </a>
+        </section>
+
+        <section class="py-12 sm:py-16">
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-stone-800 text-center mb-12">
+                <span class="text-xl sm:text-2xl font-normal">Nuestra</span></br> Ubicación</br>
+                <span class="text-xl sm:text-2xl font-normal">en Sucre</span>
+            </h2>
+            <div class="aspect-video w-full rounded-lg overflow-hidden shadow-lg">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15085.906203094122!2d-65.28031332268398!3d-19.042773999999987!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93fbcff60e823d01%3A0xde07e9d90c28266b!2sHotel%20Los%20Tarcoss!5e0!3m2!1ses-419!2sbo!4v1756672306533!5m2!1ses-419!2sbo" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <p class="text-stone-800 text-base sm:text-lg text-center mt-6 max-w-2xl mx-auto">
+                Ubicado en el corazón de Sucre, a pasos de la Plaza 25 de Mayo.</br>Los Tarcoss Hotel te permite un fácil acceso a los principales atractivos de la ciudad, ideal para explorar su riqueza cultural y colonial.
+            </p>
+        </section>
+        <section class="py-12 sm:py-16">
+            <div class="mx-auto max-w-4xl flex-1 bg-white rounded-2xl shadow-sm border border-gray-200/60 overflow-hidden">
+                <div class="p-8">
+                    <h2 class="text-2xl font-normal text-gray-800 font-serif">
+                        Lo que dicen nuestros clientes
+                    </h2>
+                </div>
+                <div id="google-reviews" class="p-8">
+                    <div class="flex justify-center">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+                    </div>
+                    <p class="text-stone-600 text-center mt-2">Cargando reseñas...</p>
+                </div>
+            </div>
+        </section>
+        <section class="py-12 sm:py-16">
+            <div class="mx-auto max-w-2xl text-center">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-stone-800">Contacto</h2>
+                <p class="mt-2 text-lg text-stone-600">¿Tiene alguna pregunta? Envíenos un mensaje.</p>
+            </div>
+            <form id="contact-form" class="mx-auto mt-12 max-w-xl">
+                <div class="grid grid-cols-1 gap-y-6 gap-x-8 sm:grid-cols-2">
+                    <div class="sm:col-span-2">
+                        <label class="block text-sm font-semibold leading-6 text-stone-900"
+                            for="name">Nombre</label>
+                        <div class="mt-2.5">
+                            <input
+                                class="block w-full rounded-lg border-0 px-4 py-3 text-stone-900 shadow-sm ring-1 ring-inset ring-stone-300 placeholder:text-stone-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6"
+                                id="name" name="name" placeholder="Su nombre completo" type="text" />
+                        </div>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-sm font-semibold leading-6 text-stone-900"
+                            for="email">Correo electrónico</label>
+                        <div class="mt-2.5">
+                            <input
+                                class="block w-full rounded-lg border-0 px-4 py-3 text-stone-900 shadow-sm ring-1 ring-inset ring-stone-300 placeholder:text-stone-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6"
+                                id="email" name="email" placeholder="Su correo electrónico" type="email" />
+                        </div>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-sm font-semibold leading-6 text-stone-900"
+                            for="message">Mensaje</label>
+                        <div class="mt-2.5">
+                            <textarea
+                                class="block w-full rounded-lg border-0 px-4 py-3 text-stone-900 shadow-sm ring-1 ring-inset ring-stone-300 placeholder:text-stone-400 focus:ring-2 focus:ring-inset focus:ring-red-600 sm:text-sm sm:leading-6"
+                                id="message" name="message" placeholder="Su mensaje o consulta" rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-10">
+                    <button
+                        class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 
+                            bg-transparent text-black border border-black font-bold text-base leading-normal tracking-[0.015em] 
+                            hover:bg-purple-600 hover:border-purple-600 hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 
+                            focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                        type="submit">
+                        Enviar
+                    </button>
+
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+
+                    const whatsappNumber = '+59168666240';
+                    let text = `Hola, mi nombre es ${name}`;
+                    if (email) {
+                        text += `. Mi correo es ${email}`;
+                    }
+                    text += `. Mi consulta es: ${message}`;
+                    const encodedText = encodeURIComponent(text);
+
+                    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
+
+                    window.open(whatsappUrl, '_blank');
+                    document.getElementById('name').value="";
+                    document.getElementById('email').value="";
+                    document.getElementById('message').value="";
+                });
+            }
+
+            // Asegúrate de usar la URL correcta de tu backend de Django
+            fetch("{% url 'google_reviews' %}")
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById("google-reviews");
+
+                    if (data.success && data.data.reviews) {
+                        const reviews = data.data.reviews;
+                        const rating = data.data.rating;
+                        const userRatingsTotal = data.data.user_ratings_total;
+
+                        // Calcular la distribución de estrellas para las barras de progreso
+                        const starCounts = reviews.reduce((acc, review) => {
+                            acc[review.rating] = (acc[review.rating] || 0) + 1;
+                            return acc;
+                        }, {});
+
+                        const totalReviews = reviews.length;
+                        const starPercentages = {};
+                        for (let i = 1; i <= 5; i++) {
+                            starPercentages[i] = totalReviews > 0 ? ((starCounts[i] || 0) / totalReviews) * 100 : 0;
+                        }
+
+                        container.innerHTML = `
+                            <div class="flex flex-col md:flex-row gap-8 px-8 pb-8 border-b">
+                                <div class="flex flex-col gap-2 items-center justify-center bg-gray-50 p-6 rounded-lg">
+                                    <p class="text-gray-900 text-6xl font-bold leading-tight tracking-tighter">${rating.toFixed(1)}</p>
+                                    <div class="flex gap-1 text-yellow-400">
+                                        ${'★'.repeat(Math.round(rating))}${'☆'.repeat(5 - Math.round(rating))}
+                                    </div>
+                                    <p class="text-gray-500 text-sm font-normal">Basado en ${userRatingsTotal} reseñas</p>
+                                </div>
+                                <div class="grid min-w-[200px] flex-1 grid-cols-[auto_1fr_auto] items-center gap-x-4 gap-y-2">
+                                    ${[5, 4, 3, 2, 1].map(star => `
+                                        <p class="text-gray-700 text-sm font-medium">${star} estrella${star > 1 ? 's' : ''}</p>
+                                        <div class="flex h-2 flex-1 overflow-hidden rounded-full bg-gray-200">
+                                            <div class="rounded-full bg-yellow-400" style="width: ${starPercentages[star]}%;"></div>
+                                        </div>
+                                        <p class="text-gray-500 text-sm font-medium text-right">${starPercentages[star].toFixed(0)}%</p>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div class="flex flex-col divide-y">
+                                ${reviews.slice(0, 6).map(review => {
+                                    const date = new Date(review.time * 1000).toLocaleDateString('es-ES', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    });
+                                    return `
+                                        <div class="flex flex-col gap-4 p-8">
+                                            <div class="flex items-start gap-4">
+                                                <img src="${review.profile_photo_url}" alt="${review.author_name}" 
+                                                    class="rounded-full size-12"
+                                                    onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNFNUU3RUIiLz4KPHN2ZyB4PSI4IiB5PSI4IiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSI+CjxwYXRoIGQ9Im0yMCAxNi0yIDJMMTIgMTJsLTYgNi0yLTJMMTkgMTFMMyAxNEw0IDE3TDE5IDExTDE0IDE5TDE1IDIyTDIyIDE4LzIwIDE2em0tMS04LTQgMy04LThsNC0zIDggOHoiIHN0cm9rZT0iIzZCNzI4MCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KPC9zdmc+Cjwvc3ZnPgo='"/>
+                                                <div class="flex-1">
+                                                    <p class="text-gray-800 text-base font-semibold">${review.author_name}</p>
+                                                    <p class="text-gray-500 text-sm">${date}</p>
+                                                    <div class="flex gap-0.5 mt-2 text-yellow-400">
+                                                        ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-700 text-base leading-relaxed">${review.text}</p>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                            <a href="https://maps.app.goo.gl/T27nCtvMsrfbYFfC7"
+                                class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 
+                                bg-transparent text-black border border-black font-bold text-base leading-normal tracking-[0.015em] 
+                                hover:bg-purple-800 hover:border-purple-800 hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 
+                                focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                                type="submit">
+                                Ver más
+                            </a>
+                        `;
+                    } else {
+                        container.innerHTML = `
+                            <div class="text-center text-stone-600">
+                                <p>No se pudieron cargar las reseñas en este momento.</p>
+                                <p class="text-sm mt-2">Visita nuestro perfil en Google Maps para ver todas las reseñas.</p>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById("google-reviews").innerHTML = `
+                        <div class="text-center text-stone-600">
+                            <p>Error al cargar las reseñas.</p>
+                            <p class="text-sm mt-2">Por favor, visita nuestro perfil en Google Maps.</p>
+                        </div>
+                    `;
+                });
+        });
+    </script>
+    
+
+</main>
+
+{% endblock %}

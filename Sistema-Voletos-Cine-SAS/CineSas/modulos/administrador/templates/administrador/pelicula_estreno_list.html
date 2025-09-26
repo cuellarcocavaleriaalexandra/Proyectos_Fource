@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Películas de Estreno</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #292929;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: none;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: 2px solid white;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      .btn-container {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        margin: 5px;
+      }
+
+      .btn:hover {
+        background-color: #218838;
+      }
+
+      .btn-home {
+        background-color: red;
+      }
+
+      .btn-home:hover {
+        background-color: red;
+      }
+
+      .peliculas-list {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .peliculas-list li {
+        background-color: #f9f9f9;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s;
+      }
+
+      .peliculas-list li:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .peliculas-list a {
+        color: red;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+      }
+
+      .peliculas-list a:hover {
+        color: #0056b3;
+      }
+      .pelicula-item,
+      .pelicula-estreno-item {
+        background-color: none;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #f0f0f0;
+        border: 2px solid white;
+      }
+      .peliculas-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        width: 100%;
+        max-width: 1200px;
+        justify-content: center;
+      }
+      .pelicula-titulo {
+        font-weight: bold;
+        font-size: 18px;
+        color: red;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 style="color: red;">Películas de Estreno</h1>
+      <div class="btn-container">
+        <a href="{% url 'pelicula_estreno_create' %}" class="btn"
+          ><i class="fas fa-plus"></i> Añadir nueva película</a
+        >
+        <a href="http://127.0.0.1:8000/" class="btn btn-home"
+          ><i class="fas fa-home"></i> Ir a Inicio</a
+        >
+      </div>
+      <div class="peliculas-container">
+        {% for pelicula in peliculas %}
+        <div class="pelicula-item">
+          <a
+            class="pelicula-titulo"
+            href="{% url 'pelicula_estreno_detail' pelicula.pk %}"
+            >{{ pelicula.titulo }}</a
+          >
+          <img
+            style="width: 200px; height: 300px"
+            src="{{pelicula.imagen.url}}"
+            alt="{{pelicula.titulo}}"
+          />
+          <a class="pelicula-titulo" href="">{{pelicula.fecha_estreno}}</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

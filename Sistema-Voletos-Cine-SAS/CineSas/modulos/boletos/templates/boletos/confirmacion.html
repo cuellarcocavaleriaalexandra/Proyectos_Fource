@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirmación de Compra</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #292929;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .confirmation-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+      }
+
+      h1 {
+        color: red;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1.2em;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+
+      .ticket-details {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .ticket-details p {
+        margin: 10px 0;
+        font-size: 1.1em;
+      }
+
+      .btn-home {
+        display: inline-block;
+        text-decoration: none;
+        background-color: red;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1.2em;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn-home:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="confirmation-container">
+      <h1>¡Compra Confirmada!</h1>
+      <div class="ticket-details">
+        <p>
+          <strong>Película:</strong> {{ boletos.0.funcion.pelicula.titulo }}
+        </p>
+        <p><strong>Horario:</strong> {{ boletos.0.funcion.horario }}</p>
+        {% for boleto in boletos %}
+        <p>
+          <strong>Asiento:</strong> Número {{ boleto.asiento.numero }}, Fila
+          {{boleto.asiento.fila }}
+        </p>
+        {% endfor %}
+      </div>
+      <p>
+        <strong>Total de boletos:</strong> {{ boletos|length }}
+        <br />
+        <strong>Precio Total :</strong> {{ precio }}
+      </p>
+
+      <p>¡Gracias por tu compra! Disfruta de la película.</p>
+      <meta http-equiv="refresh" content="3; url=http://127.0.0.1:8000/" />
+    </div>
+  </body>
+</html>

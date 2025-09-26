@@ -1,0 +1,532 @@
+{% extends 'core/base.html' %} {% load static %} {% block content %}
+
+<div
+  class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden"
+>
+  <div class="layout-container flex h-full grow flex-col">
+    <main class="flex-1">
+      <div class="px-4 py-12 md:px-8 lg:px-16 xl:px-24 2xl:px-40">
+        <div class="mx-auto max-w-7xl">
+          <div class="relative grid grid-cols-1 lg:grid-cols-2">
+            <!-- columna izquierda -->
+            <div class="relative z-10">
+              <div
+                class="absolute -left-4 -top-4 bottom-4 w-full bg-[var(--primary-color)] rounded-lg -rotate-2 z-0"
+              ></div>
+              <img
+                alt="Habitación Matrimonial"
+                class="relative w-full h-full object-cover rounded-lg z-10"
+                src="{% static 'images/Matrimonial_Privado/IMG_9716.avif'%}"
+              />
+            </div>
+
+            <!-- Columna derecha -->
+            <div class="relative z-10 overflow-hidden min-h-[32rem]">
+              <!-- Contenedor titulo y descripcion -->
+              <div class="ml-2 sm:ml-2 lg:ml-8 xl:ml-8 2xl:ml-8">
+                <h2
+                  class="text-stone-900 text-3xl font-bold tracking-tight lg:text-3xl mt-6 lg:mt-10"
+                >
+                  Habitación Matrimonial
+                </h2>
+                <p class="mt-4 lg:mt-6 text-stone-600 text-lg">
+                  Habitación matrimonial perfecta para parejas que buscan un
+                  espacio íntimo y práctico. Su diseño funcional y su
+                  equipamiento permiten un descanso tranquilo y reparador,
+                  manteniendo la comodidad dentro de un ambiente sencillo pero
+                  acogedor.
+                </p>
+              </div>
+              <!-- Contenedor franja + botón-->
+              <div class="mt-6">
+                <div
+                  class="w-full h-32 bg-cover bg-center opacity-100 pointer-events-none"
+                  style="
+                    background-image: url('/static/images/fondo_v.webp');
+                    opacity: 0.7;
+                  "
+                >
+                  <div
+                    class="flex lg:absolute w-full h-32 items-center justify-center lg:justify-end px-8 z-30 pointer-events-auto"
+                  >
+                    <a
+                      href="{% url 'reservas' %}"
+                      class="flex min-w-[84px] max-w-[200px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 border border-white bg-white text-gray-800 text-base font-bold leading-normal tracking-[0.015em] transition-colors duration-200 hover:bg-gray-800 hover:text-white hover:border-gray-800"
+                    >
+                      <span class="truncate">Reservar ahora</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <!-- Contenedor iconos caracteristicas-->
+              <div
+                class="flex flex-wrap justify-center xl:justify-between items-start gap-6 xl:gap-2 w-full px-6 xl:px-12 py-6"
+              >
+                <!-- Icono Persona -->
+                <div
+                  class="flex flex-col items-center text-center w-16 xl:w-20"
+                >
+                  <div
+                    class="bg-white border-2 border-[var(--primary-color)] rounded-full w-12 h-12 xl:w-14 xl:h-14 flex items-center justify-center mb-2"
+                  >
+                    <i
+                      class="fa-solid fa-person text-xl xl:text-2xl text-[var(--primary-color)]"
+                    ></i>
+                  </div>
+                  <div class="text-stone-700">
+                    <div class="font-bold text-xs xl:text-sm">Capacidad</div>
+                    <div class="text-xs">2 personas</div>
+                  </div>
+                </div>
+
+                <!-- Icono TV -->
+                <div
+                  class="flex flex-col items-center text-center w-16 xl:w-20"
+                >
+                  <div
+                    class="bg-white border-2 border-[var(--primary-color)] rounded-full w-12 h-12 xl:w-14 xl:h-14 flex items-center justify-center mb-2"
+                  >
+                    <i
+                      class="fa-solid fa-tv text-xl xl:text-2xl text-[var(--primary-color)]"
+                    ></i>
+                  </div>
+                  <div class="text-stone-700">
+                    <div class="font-bold text-xs xl:text-sm">Smart TV</div>
+                    <div class="text-xs">40"</div>
+                  </div>
+                </div>
+
+                <!-- Icono Ducha -->
+                <div
+                  class="flex flex-col items-center text-center w-16 xl:w-20"
+                >
+                  <div
+                    class="bg-white border-2 border-[var(--primary-color)] rounded-full w-12 h-12 xl:w-14 xl:h-14 flex items-center justify-center mb-2"
+                  >
+                    <i
+                      class="fa-solid fa-shower text-xl xl:text-2xl text-[var(--primary-color)]"
+                    ></i>
+                  </div>
+                  <div class="text-stone-700">
+                    <div class="font-bold text-xs xl:text-sm leading-tight">
+                      Ducha Caliente
+                    </div>
+                    <div class="text-xs">Termostato</div>
+                  </div>
+                </div>
+
+                <!-- Icono Cama -->
+                <div
+                  class="flex flex-col items-center text-center w-16 xl:w-20"
+                >
+                  <div
+                    class="bg-white border-2 border-[var(--primary-color)] rounded-full w-12 h-12 xl:w-14 xl:h-14 flex items-center justify-center mb-2"
+                  >
+                    <i
+                      class="fa-solid fa-bed text-xl xl:text-2xl text-[var(--primary-color)]"
+                    ></i>
+                  </div>
+                  <div class="text-stone-700">
+                    <div class="font-bold text-xs xl:text-sm leading-tight">
+                      Colchón Premium
+                    </div>
+                    <div class="text-xs">Alta calidad</div>
+                  </div>
+                </div>
+
+                <!-- Icono Jabón -->
+                <div
+                  class="flex flex-col items-center text-center w-16 xl:w-20"
+                >
+                  <div
+                    class="bg-white border-2 border-[var(--primary-color)] rounded-full w-12 h-12 xl:w-14 xl:h-14 flex items-center justify-center mb-2"
+                  >
+                    <i
+                      class="fa-solid fa-pump-soap text-xl xl:text-2xl text-[var(--primary-color)]"
+                    ></i>
+                  </div>
+                  <div class="text-stone-700">
+                    <div class="font-bold text-xs xl:text-sm">Amenities</div>
+                    <div class="text-xs leading-tight">
+                      <div>Jabón</div>
+                      <div>Shampoo</div>
+                      <div>Toallas</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Tipos de habitaciones-->
+          <div>
+            <main class="container mx-auto flex-1 px-4 pt-12 pb-4 sm:px-6 lg:px-8">
+              <div class="mx-auto max-w-5xl">
+                <div class="mb-10 text-center">
+                  <div class="mb-8 flex justify-center gap-4">
+                    <button
+                      id="filter-all"
+                      onclick="filterRooms('all')"
+                      class="filter-button active rounded-lg px-6 py-2 text-sm font-semibold border border-black hover:bg-[var(--primary-color)] hover:text-white hover:border-white transition-colors"
+                    >
+                      Todos
+                    </button>
+                    <button
+                      id="filter-privado"
+                      onclick="filterRooms('privado')"
+                      class="filter-button inactive rounded-lg px-6 py-2 text-sm font-semibold border border-black hover:bg-[var(--primary-color)] hover:text-white hover:border-white transition-colors"
+                    >
+                      Baño Privado
+                    </button>
+                    <button
+                      id="filter-compartido"
+                      onclick="filterRooms('compartido')"
+                      class="filter-button inactive rounded-lg px-6 py-2 text-sm font-semibold border border-black hover:bg-[var(--primary-color)] hover:text-white hover:border-white transition-colors"
+                    >
+                      Baño Compartido
+                    </button>
+                  </div>
+
+                  <!--Tipos de habitaciones CON CARRUSEL -->
+
+                  <div id="rooms-container" class="space-y-8">
+                    <!-- HABITACIÓN PRIVADA CON CARRUSEL -->
+                    <div
+                      class="room-card privado-room flex flex-col overflow-hidden rounded-lg bg-white shadow-md transition-shadow duration-300 hover:shadow-xl md:flex-row"
+                      data-category="privado"
+                    >
+                      <!-- CARRUSEL CON JAVASCRIPT PURO -->
+                      <div class="relative h-64 w-full md:h-auto md:w-2/5 overflow-hidden" data-carousel="privado">
+                        <div class="carousel-container flex transition-transform duration-300 ease-in-out h-full">
+                          <div class="carousel-slide min-w-full h-full bg-cover bg-center bg-gray-200" style="background-image: url('{% static "images\Matrimonial_Privado\IMG_9720.avif" %}')"></div>
+                          <div class="carousel-slide min-w-full h-full bg-cover bg-center bg-gray-200" style="background-image: url('{% static "images\Matrimonial_Privado\IMG_9716.avif" %}')"></div>
+                        </div>
+
+                        <!-- Controles -->
+                        <div class="absolute inset-0 flex items-center justify-between z-10">
+                          <button onclick="changeSlide('privado', -1)" class="ml-2 bg-black bg-opacity-50 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-opacity-70 transition">
+                            <span class="text-sm">‹</span>
+                          </button>
+                          <button onclick="changeSlide('privado', 1)" class="mr-2 bg-black bg-opacity-50 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-opacity-70 transition">
+                            <span class="text-sm">›</span>
+                          </button>
+                        </div>
+
+                        <!-- Indicadores -->
+                        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+                          <button onclick="goToSlide('privado', 0)" class="carousel-indicator w-3 h-3 rounded-full bg-white transition-all duration-200"></button>
+                          <button onclick="goToSlide('privado', 1)" class="carousel-indicator w-3 h-3 rounded-full bg-white bg-opacity-50 transition-all duration-200"></button>
+                        </div>
+                      </div>
+
+                      <div class="flex flex-1 flex-col justify-between p-6">
+                        <div>
+                          <div class="mb-2 flex items-center justify-between">
+                            <h3 class="text-left text-2xl font-bold text-gray-900">
+                              Matrimonial con cama de 2 plazas
+                            </h3>
+                            <span
+                              class="rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-[var(--primary-color)]"
+                              >Baño Privado</span
+                            >
+                          </div>
+                          <p class="mb-4 text-left text-gray-600">
+                            Un espacio diseñado para el descanso en pareja o
+                            para quienes buscan mayor comodidad y privacidad.
+                            Esta habitación matrimonial, ubicada en el cuarto
+                            piso, combina un ambiente cálido y acogedor con el
+                            confort necesario para una estadía placentera.
+                          </p>
+                          <div
+                            class="mb-4 flex flex-col gap-3 text-sm text-gray-700"
+                          >
+                            <!-- Camas -->
+                            <div class="flex items-center gap-2">
+                              <div
+                                class="flex items-center justify-center rounded-full w-10 h-10 border-2 border-[var(--primary-color)]"
+                              >
+                                <i
+                                  class="fa-solid fa-bed text-[var(--primary-color)]"
+                                ></i>
+                              </div>
+                              <span>1 cama de dos plazas</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <p class="text-2xl font-bold text-gray-900">
+                            Bs.220<span
+                              class="text-base font-normal text-gray-500"
+                              >/noche</span
+                            >
+                          </p>
+                          <a
+                            href="{% url 'reservas' %}"
+                            class="rounded-lg px-5 py-2.5 text-sm font-semibold text-black border border-black hover:bg-[var(--primary-color)] hover:text-white hover:border-white transition-colors"
+                          >
+                            Reservar
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- HABITACIÓN COMPARTIDA CON CARRUSEL -->
+                    <div
+                      class="room-card compartido-room flex flex-col overflow-hidden rounded-lg bg-white shadow-md transition-shadow duration-300 hover:shadow-xl md:flex-row"
+                      data-category="compartido"
+                    >
+                      <!-- CARRUSEL CON JAVASCRIPT PURO -->
+                      <div class="relative h-64 w-full md:h-auto md:w-2/5 overflow-hidden" data-carousel="compartido">
+                        <div class="carousel-container flex transition-transform duration-300 ease-in-out h-full">
+                          <div class="carousel-slide min-w-full h-full bg-cover bg-center bg-gray-200" style="background-image: url('{% static "images\Matrimonial_Compartido\DSC_0081.avif" %}')"></div>
+                          <div class="carousel-slide min-w-full h-full bg-cover bg-center bg-gray-200" style="background-image: url('{% static "images\Matrimonial_Compartido\DSC_0085.avif" %}')"></div>
+                          <div class="carousel-slide min-w-full h-full bg-cover bg-center bg-gray-200" style="background-image: url('{% static "images\Matrimonial_Compartido\IMG_9656.avif" %}')"></div>
+                        </div>
+
+                        <!-- Controles -->
+                        <div class="absolute inset-0 flex items-center justify-between z-10">
+                          <button onclick="changeSlide('compartido', -1)" class="ml-2 bg-black bg-opacity-50 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-opacity-70 transition">
+                            <span class="text-sm">‹</span>
+                          </button>
+                          <button onclick="changeSlide('compartido', 1)" class="mr-2 bg-black bg-opacity-50 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-opacity-70 transition">
+                            <span class="text-sm">›</span>
+                          </button>
+                        </div>
+
+                        <!-- Indicadores -->
+                        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+                          <button onclick="goToSlide('compartido', 0)" class="carousel-indicator w-3 h-3 rounded-full bg-white transition-all duration-200"></button>
+                          <button onclick="goToSlide('compartido', 1)" class="carousel-indicator w-3 h-3 rounded-full bg-white bg-opacity-50 transition-all duration-200"></button>
+                          <button onclick="goToSlide('compartido', 2)" class="carousel-indicator w-3 h-3 rounded-full bg-white bg-opacity-50 transition-all duration-200"></button>
+                        </div>
+                      </div>
+
+                      <div class="flex flex-1 flex-col justify-between p-6">
+                        <div>
+                          <div class="mb-2 flex items-center justify-between">
+                            <h3 class="text-left text-2xl font-bold text-gray-900">
+                              Matrimonial con cama de 2 plazas
+                            </h3>
+                            <span
+                              class="rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-[var(--primary-color)]"
+                              >Baño Compartido</span
+                            >
+                          </div>
+                          <p class="mb-4 text-left text-gray-600">
+                            Habitación matrimonial perfecta para parejas que
+                            buscan un espacio íntimo y práctico. Su diseño
+                            funcional y su equipamiento permiten un descanso
+                            tranquilo y reparador, manteniendo la comodidad
+                            dentro de un ambiente sencillo pero acogedor.
+                          </p>
+                          <div
+                            class="mb-4 flex flex-col gap-3 text-sm text-gray-700"
+                          >
+                            <!-- Camas -->
+                            <div class="flex items-center gap-2">
+                              <div
+                                class="flex items-center justify-center rounded-full w-10 h-10 border-2 border-[var(--primary-color)]"
+                              >
+                                <i
+                                  class="fa-solid fa-bed text-[var(--primary-color)]"
+                                ></i>
+                              </div>
+                              <span>1 cama de dos plazas</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                          <p class="text-2xl font-bold text-gray-900">
+                            Bs.180<span
+                              class="text-base font-normal text-gray-500"
+                              >/noche</span
+                            >
+                          </p>
+                          <a
+                            href="{% url 'reservas' %}"
+                            class="rounded-lg px-5 py-2.5 text-sm font-semibold text-black border border-black hover:bg-[var(--primary-color)] hover:text-white hover:border-white transition-colors"
+                          >
+                            Reservar
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Mensaje cuando no hay resultados -->
+                  <div id="no-results" class="hidden text-center py-12">
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">
+                      No se encontraron habitaciones
+                    </h3>
+                    <p class="text-gray-500">
+                      Prueba con otro filtro para ver más opciones.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+          <!-- Botón volver-->
+          <div class="text-center mt-0">
+            <a
+              href="{% url 'habitaciones' %}"
+              class="inline-block mt-4 px-6 py-3 border border-black text-black font-bold rounded-lg 
+                      bg-transparent hover:bg-purple-600 hover:border-purple-600 hover:text-white transition-colors"
+            >
+              Volver a Habitaciones
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+  // JavaScript para carruseles
+  const carousels = {};
+
+  function initCarousel(carouselId) {
+    carousels[carouselId] = {
+      currentSlide: 0,
+      totalSlides: document.querySelectorAll(`[data-carousel="${carouselId}"] .carousel-slide`).length
+    };
+  }
+
+  function updateCarousel(carouselId) {
+    const container = document.querySelector(`[data-carousel="${carouselId}"] .carousel-container`);
+    const indicators = document.querySelectorAll(`[data-carousel="${carouselId}"] .carousel-indicator`);
+    
+    if (container && carousels[carouselId]) {
+      container.style.transform = `translateX(-${carousels[carouselId].currentSlide * 100}%)`;
+      
+      indicators.forEach((indicator, index) => {
+        if (index === carousels[carouselId].currentSlide) {
+          indicator.classList.remove('bg-opacity-50');
+        } else {
+          indicator.classList.add('bg-opacity-50');
+        }
+      });
+    }
+  }
+
+  function changeSlide(carouselId, direction) {
+    if (!carousels[carouselId]) return;
+    
+    const carousel = carousels[carouselId];
+    carousel.currentSlide += direction;
+    
+    if (carousel.currentSlide >= carousel.totalSlides) {
+      carousel.currentSlide = 0;
+    } else if (carousel.currentSlide < 0) {
+      carousel.currentSlide = carousel.totalSlides - 1;
+    }
+    
+    updateCarousel(carouselId);
+  }
+
+  function goToSlide(carouselId, slideIndex) {
+    if (!carousels[carouselId]) return;
+    
+    carousels[carouselId].currentSlide = slideIndex;
+    updateCarousel(carouselId);
+  }
+
+  // Funciones de filtrado (manteniendo las originales)
+  let currentFilter = "all";
+
+  function filterRooms(category) {
+    currentFilter = category;
+
+    // Actualizar estados de los botones
+    document.querySelectorAll(".filter-button").forEach((button) => {
+      button.classList.remove("active");
+      button.classList.add("inactive");
+    });
+
+    const activeButton = document.getElementById(`filter-${category}`);
+    activeButton.classList.remove("inactive");
+    activeButton.classList.add("active");
+
+    // Filtrar habitaciones
+    const rooms = document.querySelectorAll(".room-card");
+    let visibleRooms = 0;
+
+    rooms.forEach((room) => {
+      const roomCategory = room.dataset.category;
+
+      if (category === "all" || roomCategory === category) {
+        room.classList.remove("hidden");
+        visibleRooms++;
+      } else {
+        room.classList.add("hidden");
+      }
+    });
+
+    // Mostrar/ocultar mensaje de "sin resultados"
+    const noResults = document.getElementById("no-results");
+    const roomsContainer = document.getElementById("rooms-container");
+
+    if (visibleRooms === 0) {
+      noResults.classList.remove("hidden");
+      roomsContainer.style.display = "none";
+    } else {
+      noResults.classList.add("hidden");
+      roomsContainer.style.display = "block";
+    }
+  }
+
+  // Funciones de animación suave
+  function smoothFilter(category) {
+    const rooms = document.querySelectorAll(".room-card");
+
+    // Fade out
+    rooms.forEach((room) => {
+      room.style.opacity = "1";
+      room.style.transform = "scale(0.95)";
+    });
+
+    setTimeout(() => {
+      filterRooms(category);
+
+      // Fade in
+      const visibleRooms = document.querySelectorAll(".room-card:not(.hidden)");
+      visibleRooms.forEach((room, index) => {
+        setTimeout(() => {
+          room.style.opacity = "1";
+          room.style.transform = "scale(1)";
+        }, index * 100);
+      });
+    }, 150);
+  }
+
+  // Inicializar todo cuando el DOM esté listo
+  document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar carruseles
+    const carouselElements = document.querySelectorAll('[data-carousel]');
+    carouselElements.forEach(element => {
+      const carouselId = element.getAttribute('data-carousel');
+      initCarousel(carouselId);
+      updateCarousel(carouselId);
+    });
+
+    // Inicializar filtros
+    filterRooms("all");
+
+    // Configurar eventos de filtrado suave
+    document.getElementById("filter-all").onclick = () => smoothFilter("all");
+    document.getElementById("filter-privado").onclick = () => smoothFilter("privado");
+    document.getElementById("filter-compartido").onclick = () => smoothFilter("compartido");
+  });
+
+  // Debug: Verificar que las imágenes se cargan
+  document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    slides.forEach((slide, index) => {
+      const bgImage = slide.style.backgroundImage;
+      
+    });
+  });
+</script>
+
+{% endblock %}

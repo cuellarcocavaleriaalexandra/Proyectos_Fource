@@ -1,0 +1,163 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+<main class="flex-1 bg-stone-100 py-12 sm:py-16">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight text-stone-900">Nuestras Habitaciones</h1>
+            <p class="text-stone-600 mt-4 max-w-3xl mx-auto text-base sm:text-lg">
+                Diseñadas para su confort y conveniencia, cada una de nuestras habitaciones ofrece una experiencia única y memorable.
+            </p>
+        </div>
+
+        <!-- Línea de fondo -->
+        <div class="absolute top-56 left-0 w-full h-32 bg-[var(--primary-color)] opacity-100 z-0"></div>
+        
+
+        <!-- Sección de Introducción -->
+        <div class="relative z-10 mb-16 bg-white p-8 rounded-xl shadow-lg">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div>
+                    <img src="{% static 'images/Cuadruple_Compartido_2_Dobles_Vista/DSC_00281.jpg' %}" 
+                         alt="Interior de una habitación de hotel elegante y moderna" 
+                         class="rounded-lg shadow-md w-full h-auto object-cover aspect-video">
+                </div>
+                <div class="text-center md:text-left">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-stone-800 mb-4">Un Refugio de Paz y Confort</h2>
+                    <p class="text-stone-600 leading-relaxed">
+                        En el Hotel Los Tarcoss, ofrecemos una amplia variedad de habitaciones pensadas para viajeros individuales, parejas, familias y grupos. Con opciones de baño privado y compartido, cada habitación está diseñada para brindar confort y funcionalidad en un ambiente cálido que captura el encanto de Sucre. Desde espacios íntimos hasta habitaciones espaciosas para grupos grandes, nuestra oferta se adapta a tus necesidades, garantizando una estadía acogedora en el corazón de la ciudad.
+                    </p>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-10">
+
+        
+
+            <!-- Habitación Matrimonial Card -->
+            <a href="{% url 'habitacion_matrimonial' %}" class="relative block w-full h-[450px] bg-white shadow-lg rounded-xl overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-3/5 transition-all duration-300 ease-in-out group-hover:top-[-15px]">
+                    <div class="w-full h-full bg-center bg-cover transition-transform duration-300 ease-in-out group-hover:scale-110">
+                        <img src="{% static 'images/Matrimonial_Privado/IMG_97161.jpg'%}" alt="">
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-0 w-full h-2/5 bg-white p-6 transition-all duration-300 ease-in-out group-hover:h-[45%] group-hover:pt-8">
+                    <h3 class="text-xl font-bold text-stone-800">Habitación Matrimonial</h3>
+                    <p class="text-stone-600 text-sm mt-2 leading-relaxed">
+                        Habitación matrimonial, ideal para comodidad y privacidad en el centro de Sucre.
+                    </p>
+                    <div class="absolute bottom-0 left-0 w-full px-6 pb-4">
+                        <div class="flex justify-between items-center border-t border-stone-200 pt-3">
+                            <span class="font-bold text-sm text-stone-500">Ver Detalles</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <!-- Habitación triple Card -->
+            <a href="{% url 'habitacion_triple' %}" class="relative block w-full h-[450px] bg-white shadow-lg rounded-xl overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-3/5 transition-all duration-300 ease-in-out group-hover:top-[-15px]">
+                    <div class="w-full h-full bg-center bg-cover transition-transform duration-300 ease-in-out group-hover:scale-110">
+                        <img src="{% static 'images/Triple_Privado_Vista/IMG_9641.jpg'%}" alt="">
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-0 w-full h-2/5 bg-white p-6 transition-all duration-300 ease-in-out group-hover:h-[45%] group-hover:pt-8">
+                    <h3 class="text-xl font-bold text-stone-800">Habitación Triple</h3>
+                    <p class="text-stone-600 text-sm mt-2 leading-relaxed">
+                        Habitación triple con camas confortables, ideal para familias o grupos pequeños que buscan comodidad en el centro de Sucre.
+                    </p>
+                    <div class="absolute bottom-0 left-0 w-full px-6 pb-4">
+                        <div class="flex justify-between items-center border-t border-stone-200 pt-3">
+                            <span class="font-bold text-sm text-stone-500">Ver Detalles</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Habitación cuadruple Card -->
+            <a href="{% url 'habitacion_cuadruple' %}" class="relative block w-full h-[450px] bg-white shadow-lg rounded-xl overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-3/5 transition-all duration-300 ease-in-out group-hover:top-[-15px]">
+                    <div class="w-full h-full bg-center bg-cover transition-transform duration-300 ease-in-out group-hover:scale-110">
+                        <img src="{% static 'images/Cuadruple_Privado_1_Doble_2_Simple/IMG_9464.jpg'%}" alt="">
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-0 w-full h-2/5 bg-white p-6 transition-all duration-300 ease-in-out group-hover:h-[45%] group-hover:pt-8">
+                    <h3 class="text-xl font-bold text-stone-800">Habitación Cuádruple</h3>
+                    <p class="text-stone-600 text-sm mt-2 leading-relaxed">
+                        Habitación cuádruple amplia y acogedora, pensada para familias o grupos que desean compartir y descansar con confort.
+                    </p>
+                    <div class="absolute bottom-0 left-0 w-full px-6 pb-4">
+                        <div class="flex justify-between items-center border-t border-stone-200 pt-3">
+                            <span class="font-bold text-sm text-stone-500">Ver Detalles</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Habitación quíntuple Card -->
+            <a href="{% url 'habitacion_quintuple' %}" class="relative block w-full h-[450px] bg-white shadow-lg rounded-xl overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-3/5 transition-all duration-300 ease-in-out group-hover:top-[-15px]">
+                    <div class="w-full h-full bg-center bg-cover transition-transform duration-300 ease-in-out group-hover:scale-110">
+                        <img src="{% static 'images/Quintuple_Vista/DSC_0027.avif'%}" alt="">
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-0 w-full h-2/5 bg-white p-6 transition-all duration-300 ease-in-out group-hover:h-[45%] group-hover:pt-8">
+                    <h3 class="text-xl font-bold text-stone-800">Habitación Quíntuple</h3>
+                    <p class="text-stone-600 text-sm mt-2 leading-relaxed">
+                        Habitación quíntuple práctica y cómoda, perfecta para grupos numerosos que buscan una estadía conveniente en Sucre.
+                    </p>
+                    <div class="absolute bottom-0 left-0 w-full px-6 pb-4">
+                        <div class="flex justify-between items-center border-t border-stone-200 pt-3">
+                            <span class="font-bold text-sm text-stone-500">Ver Detalles</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+
+            <!-- Habitación Sextuple Card -->
+            <a href="{% url 'habitacion_sextuple' %}" class="relative block w-full h-[450px] bg-white shadow-lg rounded-xl overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-3/5 transition-all duration-300 ease-in-out group-hover:top-[-15px]">
+                    <div class="w-full h-full bg-center bg-cover transition-transform duration-300 ease-in-out group-hover:scale-110">
+                        <img src="{% static 'images/Sextuple_1_Doble_2_Literas/IMG_9660.avif'%}" alt="">
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-0 w-full h-2/5 bg-white p-6 transition-all duration-300 ease-in-out group-hover:h-[45%] group-hover:pt-8">
+                    <h3 class="text-xl font-bold text-stone-800">Habitación Séxtuple</h3>
+                    <p class="text-stone-600 text-sm mt-2 leading-relaxed">
+                        Habitación séxtuple espaciosa y funcional, diseñada para grupos grandes que valoran el confort y la buena ubicación.
+                    </p>
+                    <div class="absolute bottom-0 left-0 w-full px-6 pb-4">
+                        <div class="flex justify-between items-center border-t border-stone-200 pt-3">
+                            <span class="font-bold text-sm text-stone-500">Ver Detalles</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Habitación Septuple Card -->
+            <a href="{% url 'habitacion_septuple' %}" class="relative block w-full h-[450px] bg-white shadow-lg rounded-xl overflow-hidden group">
+                <div class="absolute top-0 left-0 w-full h-3/5 transition-all duration-300 ease-in-out group-hover:top-[-15px]">
+                    <div class="w-full h-full bg-center bg-cover transition-transform duration-300 ease-in-out group-hover:scale-110">
+                        <img src="{% static 'images/Septuple/IMG_9542.jpg'%}" alt="">
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-0 w-full h-2/5 bg-white p-6 transition-all duration-300 ease-in-out group-hover:h-[45%] group-hover:pt-8">
+                    <h3 class="text-xl font-bold text-stone-800">Habitación Séptuple</h3>
+                    <p class="text-stone-600 text-sm mt-2 leading-relaxed">
+                        Habitación séptuple amplia, ideal para viajes en grupo, combinando comodidad y cercanía al corazón de Sucre.
+                    </p>
+                    <div class="absolute bottom-0 left-0 w-full px-6 pb-4">
+                        <div class="flex justify-between items-center border-t border-stone-200 pt-3">
+                            <span class="font-bold text-sm text-stone-500">Ver Detalles</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</main>
+{% endblock %}
+

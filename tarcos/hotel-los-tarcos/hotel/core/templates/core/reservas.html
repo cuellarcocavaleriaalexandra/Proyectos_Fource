@@ -1,0 +1,344 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<main class="flex-1">
+    <section class="bg-white py-16 sm:py-24">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-2">
+                <div class="flex flex-col justify-center">
+                    {% load static %}
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
+                        Reservas y Contacto en Hotel Los Tarcoss
+                    </h1>
+                    <p class="mt-4 text-base sm:text-lg leading-8 text-gray-600">
+                        ¿Listo para una estancia inolvidable en Sucre? Rellene el formulario para reservar su habitación
+                        en Hotel Los Tarcoss o envíenos un mensaje. ¡Le esperamos en la ciudad blanca!
+                    </p>
+                    <img class="mt-8 rounded-lg shadow-lg w-5/6 mx-auto" src="{% static 'images/reservas/fachada_2.webp' %}"
+                        alt="Fachada del Hotel Los Tarcoss">
+                </div>
+                <div class="rounded-2xl bg-gray-50 p-8 shadow-lg">
+                    <form id="reservationForm" class="space-y-6">
+                        <div class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                            <div>
+                                <label class="block text-sm font-medium leading-6 text-gray-900" for="nombres">
+                                    Nombres *
+                                </label>
+                                <div class="mt-2">
+                                    <input
+                                        class="block w-full rounded-md border-0 bg-white px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)] sm:text-sm sm:leading-6"
+                                        id="nombres" name="nombres" placeholder="Sus nombres" type="text" required />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium leading-6 text-gray-900" for="apellidos">
+                                    Apellidos *
+                                </label>
+                                <div class="mt-2">
+                                    <input
+                                        class="block w-full rounded-md border-0 bg-white px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)] sm:text-sm sm:leading-6"
+                                        id="apellidos" name="apellidos" placeholder="Sus apellidos" type="text"
+                                        required />
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium leading-6 text-gray-900" for="email">
+                                Correo electrónico *
+                            </label>
+                            <div class="mt-2">
+                                <input
+                                    class="block w-full rounded-md border-0 bg-white px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)] sm:text-sm sm:leading-6"
+                                    id="email" name="email" placeholder="Su correo electrónico" type="email" required />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium leading-6 text-gray-900" for="telefono">
+                                Teléfono Celular *
+                            </label>
+                            <div class="mt-2 flex rounded-md shadow-sm">
+                                <select id="country-code" name="country-code"
+                                    class="block w-1/3 rounded-l-md border-0 bg-white py-2 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)] sm:text-sm sm:leading-6">
+                                    <option value="+591">🇧🇴 +591</option>
+                                    <option value="+54">🇦🇷 +54</option>
+                                    <option value="+55">🇧🇷 +55</option>
+                                    <option value="+56">🇨🇱 +56</option>
+                                    <option value="+57">🇨🇴 +57</option>
+                                    <option value="+593">🇪🇨 +593</option>
+                                    <option value="+595">🇵🇾 +595</option>
+                                    <option value="+51">🇵🇪 +51</option>
+                                    <option value="+598">🇺🇾 +598</option>
+                                    <option value="+58">🇻🇪 +58</option>
+                                </select>
+                                <input
+                                    class="block w-2/3 rounded-r-md border-0 bg-white px-3.5 py-2 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)] sm:text-sm sm:leading-6"
+                                    id="telefono" name="telefono" placeholder="Su número de celular" type="tel"
+                                    required />
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium leading-6 text-gray-900" for="habitacion">
+                                Tipo de habitación *
+                            </label>
+                            <div class="mt-2">
+                                <select
+                                    class="block w-full rounded-md border-0 bg-white py-2 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)] sm:text-sm sm:leading-6"
+                                    id="habitacion" name="habitacion" required>
+                                    <option value="">Selecciona el tipo de habitación</option>
+                                    <option value="Matrimonial">Matrimonial</option>
+                                    <option value="Triple">Triple</option>
+                                    <option value="Cuádruple">Cuádruple</option>
+                                    <option value="Quíntuple">Quíntuple</option>
+                                    <option value="Séxtuple">Séxtuple</option>
+                                    <option value="Séptuple">Séptuple</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                            <div>
+                                <label class="block text-sm font-medium leading-6 text-gray-900" for="llegada">
+                                    Fecha de llegada *
+                                </label>
+                                <div class="mt-2">
+                                    <input
+                                        class="block w-full rounded-md border-0 bg-white px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)] sm:text-sm sm:leading-6"
+                                        id="llegada" name="llegada" type="date" required />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium leading-6 text-gray-900" for="salida">
+                                    Fecha de salida *
+                                </label>
+                                <div class="mt-2">
+                                    <input
+                                        class="block w-full rounded-md border-0 bg-white px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)] sm:text-sm sm:leading-6"
+                                        id="salida" name="salida" type="date" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
+                            <div>
+                                <label class="block text-sm font-medium leading-6 text-gray-900" for="adultos">
+                                    Número de adultos *
+                                </label>
+                                <div class="mt-2">
+                                    <select
+                                        class="block w-full rounded-md border-0 bg-white py-2 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)] sm:text-sm sm:leading-6"
+                                        id="adultos" name="adultos" required>
+                                        <option value="">Selecciona</option>
+                                        <option value="1">1 adulto</option>
+                                        <option value="2">2 adultos</option>
+                                        <option value="3">3 adultos</option>
+                                        <option value="4">4 adultos</option>
+                                        <option value="5">5 adultos</option>
+                                        <option value="6">6 adultos</option>
+                                        <option value="7">7 adultos</option>
+                                        <option value="8">8 adultos</option>
+                                        <option value="9">9+ adultos</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium leading-6 text-gray-900" for="ninos">
+                                    Número de niños (0-12 años)
+                                </label>
+                                <div class="mt-2">
+                                    <select
+                                        class="block w-full rounded-md border-0 bg-white py-2 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)] sm:text-sm sm:leading-6"
+                                        id="ninos" name="ninos">
+                                        <option value="0">0 niños</option>
+                                        <option value="1">1 niño</option>
+                                        <option value="2">2 niños</option>
+                                        <option value="3">3 niños</option>
+                                        <option value="4">4 niños</option>
+                                        <option value="5">5 niños</option>
+                                        <option value="6">6+ niños</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium leading-6 text-gray-900" for="desayuno_opcion">
+                                Opción de Desayuno *
+                            </label>
+                            <div class="mt-2">
+                                <select
+                                    class="block w-full rounded-md border-0 bg-white py-2 pl-3 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)] sm:text-sm sm:leading-6"
+                                    id="desayuno_opcion" name="desayuno_opcion" required>
+                                    <option value="" disabled selected>Seleccione una opción</option>
+                                    <option value="Sin Desayuno">Sin Desayuno</option>
+                                    <option value="Desayuno Normal">Desayuno Normal</option>
+                                    <option value="Desayuno Continental (Costo extra)">Desayuno Continental (Costo
+                                        extra)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium leading-6 text-gray-900 mb-3">
+                                Servicios adicionales
+                            </label>
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                <div class="flex items-center">
+                                    <input
+                                        class="h-4 w-4 rounded border-gray-300 text-[var(--primary-color)] focus:ring-[var(--primary-color)]"
+                                        id="recojo" name="servicios" type="checkbox" value="recojo" />
+                                    <label class="ml-3 text-sm text-gray-900" for="recojo">
+                                        Recojo de aeropuerto/terminal
+                                    </label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input
+                                        class="h-4 w-4 rounded border-gray-300 text-[var(--primary-color)] focus:ring-[var(--primary-color)]"
+                                        id="garaje" name="servicios" type="checkbox" value="garaje" />
+                                    <label class="ml-3 text-sm text-gray-900" for="garaje">
+                                        Garaje/Estacionamiento
+                                    </label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input
+                                        class="h-4 w-4 rounded border-gray-300 text-[var(--primary-color)] focus:ring-[var(--primary-color)]"
+                                        id="salon" name="servicios" type="checkbox" value="salon" />
+                                    <label class="ml-3 text-sm text-gray-900" for="salon">
+                                        Salón de eventos
+                                    </label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input
+                                        class="h-4 w-4 rounded border-gray-300 text-[var(--primary-color)] focus:ring-[var(--primary-color)]"
+                                        id="limpieza" name="servicios" type="checkbox" value="limpieza" />
+                                    <label class="ml-3 text-sm text-gray-900" for="limpieza">
+                                        Servicio de limpieza diario
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium leading-6 text-gray-900" for="mensaje">
+                                Mensaje adicional
+                            </label>
+                            <div class="mt-2">
+                                <textarea
+                                    class="block w-full rounded-md border-0 bg-white px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[var(--primary-color)] sm:text-sm sm:leading-6"
+                                    id="mensaje" name="mensaje" placeholder="Escribe tu mensaje adicional..."
+                                    rows="4"></textarea>
+                            </div>
+                        </div>
+                        <div class="pt-4">
+                            <button
+                                class="w-full rounded-full bg-[var(--primary-color)] px-6 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-[#7e22a8] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:ring-offset-2"
+                                type="submit">
+                                Enviar Reserva por WhatsApp
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    document.getElementById('reservationForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Obtener los valores del formulario
+        const nombres = document.getElementById('nombres').value;
+        const apellidos = document.getElementById('apellidos').value;
+        const email = document.getElementById('email').value;
+        const countryCode = document.getElementById('country-code').value;
+        const telefono = document.getElementById('telefono').value;
+        const habitacion = document.getElementById('habitacion').value;
+        const llegada = document.getElementById('llegada').value;
+        const salida = document.getElementById('salida').value;
+        const adultos = document.getElementById('adultos').value;
+        const ninos = document.getElementById('ninos').value;
+        const desayuno = document.getElementById('desayuno_opcion').value;
+        const mensaje = document.getElementById('mensaje').value;
+
+        // Obtener servicios seleccionados
+        const serviciosSeleccionados = [];
+        const checkboxes = document.querySelectorAll('input[name="servicios"]:checked');
+        checkboxes.forEach(checkbox => {
+            const label = document.querySelector(`label[for="${checkbox.id}"]`).textContent.trim();
+            serviciosSeleccionados.push(label);
+        });
+
+        // Validar campos requeridos
+        if (!nombres || !apellidos || !email || !telefono || !habitacion || !llegada || !salida || !adultos || !desayuno) {
+            alert('Por favor, complete todos los campos obligatorios (marcados con *)');
+            return;
+        }
+
+        // Validar que la fecha de salida sea posterior a la de llegada
+        if (new Date(salida) <= new Date(llegada)) {
+            alert('La fecha de salida debe ser posterior a la fecha de llegada');
+            return;
+        }
+
+        // Formatear las fechas para mejor legibilidad
+        const fechaLlegadaFormateada = new Date(llegada).toLocaleDateString('es-ES', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        const fechaSalidaFormateada = new Date(salida).toLocaleDateString('es-ES', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Construir el mensaje de WhatsApp
+        let mensajeWhatsApp = `*RESERVA HOTEL LOS TARCOSS*%0A%0A`;
+        mensajeWhatsApp += `*Cliente:* ${nombres} ${apellidos}%0A`;
+        mensajeWhatsApp += `*Email:* ${email}%0A`;
+        mensajeWhatsApp += `*Teléfono:* ${countryCode}${telefono}%0A%0A`;
+        mensajeWhatsApp += `*Tipo de habitación:* ${habitacion}%0A`;
+        mensajeWhatsApp += `*Adultos:* ${adultos}%0A`;
+        if (ninos > 0) {
+            mensajeWhatsApp += `*Niños:* ${ninos}%0A`;
+        }
+        mensajeWhatsApp += `*Desayuno:* ${desayuno}%0A%0A`;
+        mensajeWhatsApp += `*Fecha de llegada:* ${fechaLlegadaFormateada}%0A`;
+        mensajeWhatsApp += `*Fecha de salida:* ${fechaSalidaFormateada}%0A%0A`;
+
+        if (serviciosSeleccionados.length > 0) {
+            mensajeWhatsApp += `*Servicios adicionales solicitados:*%0A`;
+            serviciosSeleccionados.forEach(servicio => {
+                mensajeWhatsApp += `• ${servicio}%0A`;
+            });
+            mensajeWhatsApp += `%0A`;
+        }
+
+        if (mensaje.trim() !== '') {
+            mensajeWhatsApp += `*Mensaje adicional:*%0A${mensaje}%0A%0A`;
+        }
+
+        mensajeWhatsApp += `¡Espero su confirmación!`;
+
+        // Crear el enlace de WhatsApp
+        const numeroWhatsApp = '+59168666240';
+        const enlaceWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
+
+        // Abrir WhatsApp
+        window.open(enlaceWhatsApp, '_blank');
+    });
+
+    // Establecer fecha mínima como hoy
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('llegada').min = today;
+    document.getElementById('salida').min = today;
+
+    // Actualizar fecha mínima de salida cuando cambie la fecha de llegada
+    document.getElementById('llegada').addEventListener('change', function () {
+        const llegada = this.value;
+        if (llegada) {
+            const minSalida = new Date(llegada);
+            minSalida.setDate(minSalida.getDate() + 1);
+            document.getElementById('salida').min = minSalida.toISOString().split('T')[0];
+        }
+    });
+</script>
+{% endblock %}
