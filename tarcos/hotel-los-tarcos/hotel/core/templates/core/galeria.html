@@ -1,0 +1,377 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  html {
+    background: black;
+  }
+
+  .video-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px 20px;
+  }
+  
+  video {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  }
+
+  .gallery-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 20px;
+  }
+
+  .gallery-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-gap: 2px;
+    grid-auto-rows: min-max(80px, auto);
+    grid-auto-flow: dense;
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+  }
+
+  .card {
+    min-height: 100px;
+    background-size: cover;
+    background-position: 50% 50%;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+  }
+
+  /* .card:hover {
+    transform: scale(1.02);
+  } */
+
+  .span-1 {
+    grid-column-end: span 1;
+    grid-row-end: span 1;
+    min-height: 100px;
+  }
+
+  .span-2 {
+    grid-column-end: span 2;
+    grid-row-end: span 2;
+    min-height: 200px;
+  }
+
+  .span-3 {
+    grid-column-end: span 3;
+    grid-row-end: span 3;
+    min-height: 400px;
+  }
+
+  .section-divider {
+    height: 2px;
+    background: linear-gradient(#000000);
+    margin: 60px auto;
+    max-width: fit-content;
+  }
+
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .modal.hidden {
+    display: none;
+  }
+
+  .modal-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+
+  .close {
+    position: fixed;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    z-index: 1001;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .prev,
+  .next {
+    cursor: pointer;
+    position: fixed;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+    z-index: 1001;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .prev {
+    left: 0;
+  }
+
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .prev:hover,
+  .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  @media (max-width: 768px) {
+    .gallery-title {
+      font-size: 2rem;
+    }
+    
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+    
+    .card {
+      min-height: 80px;
+    }
+    
+    .span-2 {
+      min-height: 160px;
+    }
+    
+    .span-3 {
+      min-height: 320px;
+    }
+  }
+</style>
+
+<!-- Video Section -->
+{% if video_names %}
+<div class="video-container">
+  <video id="bg-video" autoplay loop muted playsinline style="display:none;">
+    <source src="{% static 'images/video/' %}{{ video_names.0|cut:".mp4" }}.webm" type="video/webm">
+    <source src="{% static 'images/video/' %}{{ video_names.0 }}" type="video/mp4">
+    Tu navegador no soporta la etiqueta de video.
+  </video>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const video = document.getElementById("bg-video");
+    video.addEventListener("canplaythrough", () => {
+      video.style.display = "block"; // mostrar video cuando esté listo
+    });
+  });
+</script>
+{% endif %}
+
+
+
+<!-- Imágenes del Hotel -->
+{% if galeria_images %}
+<div class="gallery-section">
+  <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+    <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-stone-900 text-center mb-6">Hotel</h2>
+    <div class="grid" id="hotelGrid"></div>
+  </div>
+</div>
+
+
+{% endif %}
+
+<!-- Imágenes de Huéspedes -->
+{% if huespedes_images %}
+<div class="gallery-section">
+  <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+    <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-stone-900 text-center mb-6">Huéspedes</h2>
+    <div class="grid" id="huespedesGrid"></div>
+  </div>
+</div>
+{% endif %}
+
+<!-- Modal para Hotel -->
+<div id="hotelModal" class="modal hidden">
+  <span class="close" onclick="closeModal('hotel')">&times;</span>
+  <img class="modal-content" id="hotelImg" />
+  <a class="prev" onclick="changeImage('hotel', -1)">&#10094;</a>
+  <a class="next" onclick="changeImage('hotel', 1)">&#10095;</a>
+</div>
+
+<!-- Modal para Huéspedes -->
+<div id="huespedesModal" class="modal hidden">
+  <span class="close" onclick="closeModal('huespedes')">&times;</span>
+  <img class="modal-content" id="huespedesImg" />
+  <a class="prev" onclick="changeImage('huespedes', -1)">&#10094;</a>
+  <a class="next" onclick="changeImage('huespedes', 1)">&#10095;</a>
+</div>
+
+<script>
+  // Función de selección aleatoria ponderada
+  function weightedRand(spec) {
+      var i, sum = 0, r = Math.random();
+      for (i in spec) {
+          sum += spec[i];
+          if (r <= sum) return i;
+      }
+  }
+
+  // Variables globales
+  var hotelImages = [];
+  var huespedesImages = [];
+  var currentHotelIndex = 0;
+  var currentHuespedesIndex = 0;
+
+  // Datos del servidor
+  var galeriaImageNames = {{ galeria_images|safe }};
+  var huespedesImageNames = {{ huespedes_images|safe }};
+
+  // Generar grid de hotel
+  {% if galeria_images %}
+  var hotelGrid = document.getElementById('hotelGrid');
+  for (var i = 0; i < galeriaImageNames.length; i++) {
+      var span = weightedRand({1: 0.7, 2: 0.2, 3: 0.1});
+      var imageName = galeriaImageNames[i];
+      var url = "{% static 'images/galeria/' %}" + imageName;
+      hotelImages.push(url);
+
+      var div = document.createElement('div');
+      div.style.backgroundImage = "url(" + url + ")";
+      div.className = 'card span-' + span;
+      div.setAttribute('data-index', i);
+
+      div.onclick = function() {
+          openModal('hotel', parseInt(this.getAttribute('data-index')));
+      };
+
+      hotelGrid.appendChild(div);
+  }
+  {% endif %}
+
+  // Generar grid de huéspedes
+  {% if huespedes_images %}
+  var huespedesGrid = document.getElementById('huespedesGrid');
+  for (var i = 0; i < huespedesImageNames.length; i++) {
+      var span = weightedRand({1: 0.7, 2: 0.2, 3: 0.1});
+      var imageName = huespedesImageNames[i];
+      var url = "{% static 'images/huespedes/' %}" + imageName;
+      huespedesImages.push(url);
+
+      var div = document.createElement('div');
+      div.style.backgroundImage = "url(" + url + ")";
+      div.className = 'card span-' + span;
+      div.setAttribute('data-index', i);
+
+      div.onclick = function() {
+          openModal('huespedes', parseInt(this.getAttribute('data-index')));
+      };
+
+      huespedesGrid.appendChild(div);
+  }
+  {% endif %}
+
+  // Funciones del modal
+  function openModal(type, index) {
+      if (type === 'hotel') {
+          currentHotelIndex = index;
+          document.getElementById('hotelModal').classList.remove('hidden');
+          document.getElementById('hotelImg').src = hotelImages[currentHotelIndex];
+      } else if (type === 'huespedes') {
+          currentHuespedesIndex = index;
+          document.getElementById('huespedesModal').classList.remove('hidden');
+          document.getElementById('huespedesImg').src = huespedesImages[currentHuespedesIndex];
+      }
+  }
+
+  function closeModal(type) {
+      if (type === 'hotel') {
+          document.getElementById('hotelModal').classList.add('hidden');
+      } else if (type === 'huespedes') {
+          document.getElementById('huespedesModal').classList.add('hidden');
+      }
+  }
+
+  function changeImage(type, direction) {
+      if (type === 'hotel') {
+          currentHotelIndex = (currentHotelIndex + direction + hotelImages.length) % hotelImages.length;
+          document.getElementById('hotelImg').src = hotelImages[currentHotelIndex];
+      } else if (type === 'huespedes') {
+          currentHuespedesIndex = (currentHuespedesIndex + direction + huespedesImages.length) % huespedesImages.length;
+          document.getElementById('huespedesImg').src = huespedesImages[currentHuespedesIndex];
+      }
+  }
+
+  // Event listeners
+  window.onclick = function(event) {
+      if (event.target == document.getElementById('hotelModal')) {
+          closeModal('hotel');
+      }
+      if (event.target == document.getElementById('huespedesModal')) {
+          closeModal('huespedes');
+      }
+  }
+
+  document.addEventListener('keydown', function(event) {
+      var hotelModalVisible = !document.getElementById('hotelModal').classList.contains('hidden');
+      var huespedesModalVisible = !document.getElementById('huespedesModal').classList.contains('hidden');
+      
+      if (event.key === 'Escape') {
+          if (hotelModalVisible) closeModal('hotel');
+          if (huespedesModalVisible) closeModal('huespedes');
+      }
+      
+      if (event.key === 'ArrowLeft') {
+          if (hotelModalVisible) changeImage('hotel', -1);
+          if (huespedesModalVisible) changeImage('huespedes', -1);
+      }
+      
+      if (event.key === 'ArrowRight') {
+          if (hotelModalVisible) changeImage('hotel', 1);
+          if (huespedesModalVisible) changeImage('huespedes', 1);
+      }
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #292929;
+      }
+
+      .login-container {
+        background-color: none;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        max-width: 400px;
+        width: 100%;
+        font-size: 20px;
+        border: 2px solid white;
+      }
+
+      .login-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: red;
+      }
+
+      .login-container input[type="text"],
+      .login-container input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #555;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+        background-color: #333;
+        color: red;
+      }
+
+      button {
+        text-decoration: none;
+        position: relative;
+        border: none;
+        color: white;
+        font-size: 14px;
+        font-family: inherit;
+        cursor: pointer;
+        background-color: gray;
+        width: 9em;
+        height: 3em;
+        line-height: 2em;
+        text-align: center;
+        border-radius: 5px;
+        z-index: 1;
+      }
+
+      button:hover {
+        background-color: red;
+        border: none;
+      }
+
+      button:hover::before {
+        color: red;
+      }
+
+      .login-container form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      label{
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Login</h2>
+      <form method="post">
+        {% csrf_token %}
+        <label for="username">Usuario:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Enter your username"
+          required
+        />
+
+        <label for="password">Contraseña:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          required
+        />
+
+        <button>Iniciar Sesion</button>
+      </form>
+
+      {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </body>
+</html>

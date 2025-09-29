@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CozyStay - Hotel Packages</title>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+      :root {
+        --primary-color: #1792cf;
+        --secondary-color: #f0f3f4;
+        --text-primary: #111518;
+        --text-secondary: #637c88;
+      }
+      .btn-primary {
+        @apply bg-[var(--primary-color)] text-white hover:bg-opacity-90;
+      }
+      .btn-secondary {
+        @apply bg-[var(--secondary-color)] text-[var(--text-primary)] hover:bg-opacity-80;
+      }
+      .card-hover {
+        @apply transition-all duration-300 ease-in-out hover:shadow-2xl;
+      }
+      .package-card:nth-child(even) .card-content {
+        @apply md:col-start-1 md:row-start-1;
+      }
+      .package-card:nth-child(even) .image-container {
+        @apply md:col-start-2;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gray-50 text-gray-800"
+    style="font-family: 'Plus Jakarta Sans', sans-serif"
+  >
+    <div class="flex flex-col min-h-screen">
+      <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4 text-[var(--text-primary)]">
+              <svg
+                class="h-8 w-8 text-[var(--primary-color)]"
+                fill="none"
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+              <h1 class="text-2xl font-bold tracking-tight">CozyStay</h1>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+              <a
+                class="text-sm font-medium hover:text-[var(--primary-color)] transition-colors"
+                href="#"
+                >Stays</a
+              >
+              <a
+                class="text-sm font-medium hover:text-[var(--primary-color)] transition-colors"
+                href="#"
+                >Flights</a
+              >
+              <a
+                class="text-sm font-medium hover:text-[var(--primary-color)] transition-colors"
+                href="#"
+                >Car rentals</a
+              >
+              <a
+                class="text-sm font-medium hover:text-[var(--primary-color)] transition-colors"
+                href="#"
+                >Attractions</a
+              >
+            </nav>
+            <div class="flex items-center gap-4">
+              <button
+                class="btn-secondary hidden sm:flex items-center justify-center rounded-full h-10 w-10"
+              >
+                <span class="material-symbols-outlined text-xl">language</span>
+              </button>
+              <div class="relative">
+                <div
+                  class="w-10 h-10 rounded-full bg-cover bg-center"
+                  style="
+                    background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC0jhUqF7_3pxOCvgKpf6F0LxZ2-Oj0Z_bhW22ipM4yZDQ7VyJxUzcMbp3OTz-Z962L_-yuXLLzGANbpnGonJ_-NBpjdfarR_UmM6mbSsDaXT9gRn6_61LsN6nuylUw98rUNv-f5VZz9ws5sKpF1c83SUYCEIYAMmFLVRk6LdEyUqKJnqV7Vti2iaz7lMYcWlc-npoKj_hLhSf_YweLTtTFXDHZYiuqk3HiLTKubneC__BG74A_Sl26QofYtSM7Na0Fh1pLhlfQ7JKl');
+                  "
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main class="flex-grow">
+        <section class="py-16 lg:py-24">
+          <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+              <h2
+                class="text-4xl lg:text-5xl font-extrabold text-[var(--text-primary)] tracking-tight"
+              >
+                Discover Our Exclusive Packages
+              </h2>
+              <p
+                class="mt-4 text-lg text-[var(--text-secondary)] max-w-2xl mx-auto"
+              >
+                Explore our curated packages designed for an unforgettable stay,
+                tailored to your every need.
+              </p>
+            </div>
+            <div class="space-y-16 lg:space-y-24">
+              <div
+                class="package-card grid grid-cols-1 md:grid-cols-2 items-center gap-8 lg:gap-12 card-hover"
+              >
+                <div class="relative image-container">
+                  <div class="aspect-w-4 aspect-h-3">
+                    <img
+                      alt="Romantic Getaway"
+                      class="w-full h-full object-cover rounded-2xl shadow-lg"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3441IdTccEk7sHLkHSeByilCAgoAuFp18GJ3zZiOvgXYBZX4q0cFyNQSv4-onWzrWXId4AVrEwfnMn4lZXDEuWHyVYBgQU_iAbOjD9WN0-UE_oXrG1f4T1jA8ubSXOJBGEfe97ZGUpFJD-siiL4GJ26FJ-gG2OaWIfOLA2PuV45tJMhRJ35YRjG1eH42uC5N5D6OZBGAE-0VNtc8HMdjcR-EU8vaGaasXZqQoiIrFVKvyEO-gQcIL7SAEdYYkabkuuEgT1xThyi7H"
+                    />
+                  </div>
+                  <div
+                    class="absolute -bottom-6 -right-6 md:-top-6 md:-left-6 md:bottom-auto md:right-auto bg-white p-6 rounded-2xl shadow-xl w-64 card-hover"
+                  >
+                    <h3
+                      class="text-2xl font-bold text-[var(--text-primary)] mb-2"
+                    >
+                      Romantic Getaway
+                    </h3>
+                    <p class="text-[var(--text-secondary)] text-sm">
+                      Escape with your loved one to a world of romance and
+                      luxury.
+                    </p>
+                  </div>
+                  <div
+                    class="absolute top-4 left-4 bg-[var(--primary-color)] text-white px-3 py-1 rounded-full text-sm font-semibold z-10"
+                  >
+                    Most Popular
+                  </div>
+                </div>
+                <div
+                  class="bg-white rounded-2xl shadow-lg p-8 card-content card-hover"
+                >
+                  <div class="mb-6">
+                    <p class="font-semibold text-gray-700 mb-2">Inclusions:</p>
+                    <ul
+                      class="list-disc list-inside text-[var(--text-secondary)] space-y-1"
+                    >
+                      <li>2 nights stay in a deluxe suite</li>
+                      <li>Gourmet candlelit dinner for two</li>
+                      <li>Couples spa treatment</li>
+                      <li>Bottle of champagne on arrival</li>
+                    </ul>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <p class="text-3xl font-bold text-[var(--primary-color)]">
+                      $599
+                    </p>
+                    <button
+                      class="btn-primary font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105"
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="package-card grid grid-cols-1 md:grid-cols-2 items-center gap-8 lg:gap-12 card-hover"
+              >
+                <div class="relative image-container">
+                  <div class="aspect-w-4 aspect-h-3">
+                    <img
+                      alt="Family Fun Package"
+                      class="w-full h-full object-cover rounded-2xl shadow-lg"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmXgNk7QaJiQOBjK3mEiYUqFQ5qTluNQyz8fEToYEin3qhxanNuP8SVFFEVMhiOazoIumnvrt4ePlGH9SR2brfPiekPuNw1mk3JdGSiFQc55uptY8xXw_P0Ozq_EYy8YE76ghK4yReQ5HkFuFWkKZAOei9fq1PcNilTPvj64lvnEoZl9gTMbRfzatowYwrJCsHLxcyiTZ4aymMBi8YYMcMfUu02fGRWFuIdA-B_JxLST1CFUc0houi7OTnK9spd29MN6Ga8HLKZvmy"
+                    />
+                  </div>
+                  <div
+                    class="absolute -bottom-6 -left-6 md:-top-6 md:-right-6 md:left-auto md:bottom-auto bg-white p-6 rounded-2xl shadow-xl w-64 card-hover"
+                  >
+                    <h3
+                      class="text-2xl font-bold text-[var(--text-primary)] mb-2"
+                    >
+                      Family Fun
+                    </h3>
+                    <p class="text-[var(--text-secondary)] text-sm">
+                      Create lasting memories with your family. Fun for all
+                      ages.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="bg-white rounded-2xl shadow-lg p-8 card-content card-hover"
+                >
+                  <div class="mb-6">
+                    <p class="font-semibold text-gray-700 mb-2">Inclusions:</p>
+                    <ul
+                      class="list-disc list-inside text-[var(--text-secondary)] space-y-1"
+                    >
+                      <li>3 nights stay in a family room</li>
+                      <li>Daily access to Kids' Club</li>
+                      <li>Scheduled family activities</li>
+                      <li>Welcome gifts for children</li>
+                    </ul>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <p class="text-3xl font-bold text-[var(--primary-color)]">
+                      $749
+                    </p>
+                    <button
+                      class="btn-primary font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105"
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="package-card grid grid-cols-1 md:grid-cols-2 items-center gap-8 lg:gap-12 card-hover"
+              >
+                <div class="relative image-container">
+                  <div class="aspect-w-4 aspect-h-3">
+                    <img
+                      alt="Adventure Seeker's Retreat"
+                      class="w-full h-full object-cover rounded-2xl shadow-lg"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKWOa_bJH9U0Ai-LEewUGvmuGh-dPZwmxpJquBB7pWBcNgjkq2zc4dstmWBrSCLzyvBkAeljRkq5LSzlrIB5VX2lZxmp5SPEtC4wW-DL9-M-i-vwLcTpOF9vKjgWRCB2fKGRc0QjvWdGWtZ_G_CreqyG0_FlM56ldaVCmKHU0dujxw66qydjNDtR-wXgGMQ8rZNiWD-YdRd2s8Py79XLnyB4ndW7N7KajYB8dye0XC0U6w1JnfdzVjyCfPghE6IXgmbfgRGTHT4xoD"
+                    />
+                  </div>
+                  <div
+                    class="absolute -bottom-6 -right-6 md:-top-6 md:-left-6 md:bottom-auto md:right-auto bg-white p-6 rounded-2xl shadow-xl w-64 card-hover"
+                  >
+                    <h3
+                      class="text-2xl font-bold text-[var(--text-primary)] mb-2"
+                    >
+                      Adventure Retreat
+                    </h3>
+                    <p class="text-[var(--text-secondary)] text-sm">
+                      For thrill-seekers, exciting outdoor activities and tours.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="bg-white rounded-2xl shadow-lg p-8 card-content card-hover"
+                >
+                  <div class="mb-6">
+                    <p class="font-semibold text-gray-700 mb-2">Inclusions:</p>
+                    <ul
+                      class="list-disc list-inside text-[var(--text-secondary)] space-y-1"
+                    >
+                      <li>3 nights stay</li>
+                      <li>Guided mountain hike or kayaking</li>
+                      <li>Adventure tour of your choice</li>
+                      <li>Equipment rental included</li>
+                    </ul>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <p class="text-3xl font-bold text-[var(--primary-color)]">
+                      $899
+                    </p>
+                    <button
+                      class="btn-primary font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105"
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="package-card grid grid-cols-1 md:grid-cols-2 items-center gap-8 lg:gap-12 card-hover"
+              >
+                <div class="relative image-container">
+                  <div class="aspect-w-4 aspect-h-3">
+                    <img
+                      alt="Wellness &amp; Relaxation"
+                      class="w-full h-full object-cover rounded-2xl shadow-lg"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeA8G9q4DUpUbh0pS6f3na_09LCrophr60GW1-9vR8XUqpnrOfuZvitkBLSRKS1Q55NuOzP7Eoy8x85kdyDV7a__EVniz5uBeeePdKyXUvYVw5Z_Oz2Fr2kOgDcGYYlIinnjXc_gOnZZJmfY4bYBgp5E7zTwus22WrxKULsNYKKaZw2_OhBSjOjzBRfeP4AVxmVNtQQJeOEkZF3yfWyUiMf6SLrxGNSjiuCuJINa2DnCzetzDfZh6ST1Dv2zGV_aqPuCDkwGuChxsD"
+                    />
+                  </div>
+                  <div
+                    class="absolute -bottom-6 -left-6 md:-top-6 md:-right-6 md:left-auto md:bottom-auto bg-white p-6 rounded-2xl shadow-xl w-64 card-hover"
+                  >
+                    <h3
+                      class="text-2xl font-bold text-[var(--text-primary)] mb-2"
+                    >
+                      Wellness Escape
+                    </h3>
+                    <p class="text-[var(--text-secondary)] text-sm">
+                      Rejuvenate your mind and body with our wellness package.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="bg-white rounded-2xl shadow-lg p-8 card-content card-hover"
+                >
+                  <div class="mb-6">
+                    <p class="font-semibold text-gray-700 mb-2">Inclusions:</p>
+                    <ul
+                      class="list-disc list-inside text-[var(--text-secondary)] space-y-1"
+                    >
+                      <li>2 nights stay</li>
+                      <li>Daily morning yoga classes</li>
+                      <li>Full access to spa facilities</li>
+                      <li>Healthy, organic meals included</li>
+                    </ul>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <p class="text-3xl font-bold text-[var(--primary-color)]">
+                      $649
+                    </p>
+                    <button
+                      class="btn-primary font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105"
+                    >
+                      View Details
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer class="bg-[var(--text-primary)] text-white">
+        <div class="container mx-auto px-6 py-8">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="col-span-2 md:col-span-1">
+              <div class="flex items-center gap-2 mb-4">
+                <svg
+                  class="h-8 w-8 text-[var(--primary-color)]"
+                  fill="none"
+                  viewBox="0 0 48 48"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+                <h2 class="text-xl font-bold">CozyStay</h2>
+              </div>
+              <p class="text-gray-400 text-sm">Your perfect getaway awaits.</p>
+            </div>
+            <div>
+              <h3 class="font-bold mb-4">Quick Links</h3>
+              <ul class="space-y-2 text-sm text-gray-400">
+                <li><a class="hover:text-white" href="#">About Us</a></li>
+                <li><a class="hover:text-white" href="#">Contact</a></li>
+                <li><a class="hover:text-white" href="#">FAQ</a></li>
+                <li><a class="hover:text-white" href="#">Careers</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold mb-4">Legal</h3>
+              <ul class="space-y-2 text-sm text-gray-400">
+                <li><a class="hover:text-white" href="#">Privacy Policy</a></li>
+                <li>
+                  <a class="hover:text-white" href="#">Terms of Service</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold mb-4">Follow Us</h3>
+              <div class="flex space-x-4">
+                <a class="text-gray-400 hover:text-white" href="#"
+                  ><svg
+                    aria-hidden="true"
+                    class="h-6 w-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                      fill-rule="evenodd"
+                    ></path></svg
+                ></a>
+                <a class="text-gray-400 hover:text-white" href="#"
+                  ><svg
+                    aria-hidden="true"
+                    class="h-6 w-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"
+                    ></path></svg
+                ></a>
+                <a class="text-gray-400 hover:text-white" href="#"
+                  ><svg
+                    aria-hidden="true"
+                    class="h-6 w-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M12 2C6.477 2 2 6.477 2 12.001c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12.001C22 6.477 17.523 2 12 2z"
+                      fill-rule="evenodd"
+                    ></path></svg
+                ></a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="mt-8 border-t border-gray-700 pt-4 text-center text-sm text-gray-400"
+          >
+            <p>© 2024 CozyStay. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

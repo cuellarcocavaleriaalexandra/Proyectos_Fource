@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifeline - Sistema de Emergencias Médicas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emergency: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            500: '#ef4444',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            900: '#7f1d1d'
+                        },
+                        medical: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
+    
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-emergency-700 to-emergency-900 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-white p-2 rounded-full">
+                            <i class="fas fa-ambulance text-emergency-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold">LifeLine</h1>
+                            <p class="text-sm text-red-200">Sistema de Atención Médica de Urgencia</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                        <span class="text-sm">En línea</span>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm font-medium">Dr. María González</p>
+                        <p class="text-xs text-red-200">Coordinadora de Emergencias</p>
+                    </div>
+                    <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user-md text-sm"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-green-100 p-3 rounded-full">
+                        <i class="fas fa-heartbeat text-green-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-green-600" id="active-cases">0</p>
+                        <p class="text-sm text-gray-600">Casos Activos</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <div class="bg-yellow-100 p-3 rounded-full">
+                        <i class="fas fa-clock text-yellow-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-yellow-600" id="pending-cases">0</p>
+                        <p class="text-sm text-gray-600">En Espera</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <div class="bg-blue-100 p-3 rounded-full">
+                        <i class="fas fa-truck-medical text-blue-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-blue-600">12</p>
+                        <p class="text-sm text-gray-600">Ambulancias</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <div class="bg-purple-100 p-3 rounded-full">
+                        <i class="fas fa-hospital text-purple-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-2xl font-bold text-purple-600">8</p>
+                        <p class="text-sm text-gray-600">Hospitales</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="mb-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-2xl font-bold text-gray-900">
+                    <i class="fas fa-exclamation-triangle text-emergency-600 mr-2"></i>
+                    Alertas de Emergencia
+                </h2>
+                <div class="flex items-center space-x-4">
+                    <div class="bg-white px-4 py-2 rounded-lg shadow-sm border flex items-center space-x-2">
+                        <i class="fas fa-volume-up text-gray-500"></i>
+                        <span class="text-sm text-gray-600">Audio: Activado</span>
+                    </div>
+                    <div class="bg-white px-4 py-2 rounded-lg shadow-sm border">
+                        <span class="text-sm text-gray-600" id="current-time"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Container -->
+        <div id="notifications-container" class="space-y-4">
+            <div class="no-notifications bg-white rounded-lg shadow-sm border-2 border-dashed border-gray-300 p-12 text-center">
+                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-bell-slash text-2xl text-gray-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Sin emergencias activas</h3>
+                <p class="text-gray-500">El sistema está monitoreando 24/7. Las nuevas alertas aparecerán aquí automáticamente.</p>
+                <div class="mt-4 flex items-center justify-center space-x-2 text-sm text-gray-400">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span>Sistema operativo</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Audio Element -->
+    <audio id="notification-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-emergency-alert-alarm-1007.mp3" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        let emergencyCount = 0;
+        
+        // Actualizar reloj
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toLocaleString('es-ES');
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Función para obtener prioridad de emergencia
+        function getEmergencyPriority() {
+            const priorities = [
+                { level: 'CRÍTICA', color: 'red', icon: 'fa-heart-pulse', bgColor: 'bg-red-50', borderColor: 'border-red-500' },
+                { level: 'ALTA', color: 'orange', icon: 'fa-exclamation-triangle', bgColor: 'bg-orange-50', borderColor: 'border-orange-500' },
+                { level: 'MEDIA', color: 'yellow', icon: 'fa-warning', bgColor: 'bg-yellow-50', borderColor: 'border-yellow-500' }
+            ];
+            return priorities[Math.floor(Math.random() * priorities.length)];
+        }
+
+        // Función para obtener tipo de emergencia
+        function getEmergencyType() {
+            const types = [
+                'Caída '
+            ];
+            return types[Math.floor(Math.random() * types.length)];
+        }
+
+        // WebSocket connection
+        const ws = new WebSocket(`ws://${window.location.host}/ws`);
+        const notificationsContainer = document.getElementById('notifications-container');
+        const audioElement = document.getElementById('notification-sound');
+
+        function showToastNotification(title, message, priority) {
+            const toastContainer = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const priorityColors = {
+                'CRÍTICA': 'bg-red-600',
+                'ALTA': 'bg-orange-600',
+                'MEDIA': 'bg-yellow-600'
+            };
+            
+            toast.className = `${priorityColors[priority]} text-white px-6 py-4 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 max-w-sm`;
+            toast.innerHTML = `
+                <div class="flex items-start space-x-3">
+                    <i class="fas fa-ambulance text-lg mt-1"></i>
+                    <div class="flex-1">
+                        <div class="font-bold text-sm">${title}</div>
+                        <div class="text-sm opacity-90">${message}</div>
+                        <div class="text-xs opacity-75 mt-1">PRIORIDAD: ${priority}</div>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.parentElement.remove()" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => toast.classList.remove('translate-x-full'), 100);
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => toast.remove(), 300);
+            }, 8000);
+        }
+
+        function playNotificationSound() {
+            audioElement.currentTime = 0;
+            audioElement.play().catch(e => console.log("Audio error:", e));
+        }
+
+        function updateStats() {
+            const activeCases = document.querySelectorAll('.emergency-card').length;
+            document.getElementById('active-cases').textContent = activeCases;
+            document.getElementById('pending-cases').textContent = Math.floor(activeCases * 0.3);
+        }
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            emergencyCount++;
+            
+            const priority = getEmergencyPriority();
+            const emergencyType = getEmergencyType();
+            
+            showToastNotification(
+                `🚨 EMERGENCIA ${priority.level}`,
+                `${emergencyType} - ${data.direccion}`,
+                priority.level
+            );
+            
+            playNotificationSound();
+
+            const notificationElement = document.createElement('div');
+            notificationElement.className = `emergency-card bg-white rounded-lg shadow-lg border-l-4 ${priority.borderColor} hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1`;
+            
+            const timeAgo = "Hace unos segundos";
+            const caseId = `EMG-${String(emergencyCount).padStart(4, '0')}`;
+            
+            notificationElement.innerHTML = `
+                <div class="p-6">
+                    <!-- Header -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-${priority.color}-100 p-3 rounded-full">
+                                <i class="fas ${priority.icon} text-${priority.color}-600 text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900">${emergencyType}</h3>
+                                <div class="flex items-center space-x-2">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-${priority.color}-100 text-${priority.color}-800">
+                                        PRIORIDAD ${priority.level}
+                                    </span>
+                                    <span class="text-sm text-gray-500">Caso #${caseId}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm font-medium text-gray-900">${new Date().toLocaleTimeString('es-ES')}</div>
+                            <div class="text-xs text-gray-500">${timeAgo}</div>
+                        </div>
+                    </div>
+
+                    <!-- Content Grid -->
+                    <div class="grid lg:grid-cols-3 gap-6">
+                        <!-- Details -->
+                        <div class="lg:col-span-2 space-y-4">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <i class="fas fa-calendar-alt text-gray-500"></i>
+                                        <span class="font-medium text-gray-700">Fecha y Hora</span>
+                                    </div>
+                                    <p class="text-gray-900">${data.echa || new Date().toLocaleDateString('es-ES')}</p>
+                                    <p class="text-gray-900">${data.hora || new Date().toLocaleTimeString('es-ES')}</p>
+                                </div>
+                                
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <i class="fas fa-map-marker-alt text-gray-500"></i>
+                                        <span class="font-medium text-gray-700">Ubicación</span>
+                                    </div>
+                                    <p class="text-gray-900">${data.direccion}</p>
+                                </div>
+                                
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <i class="fas fa-video text-gray-500"></i>
+                                        <span class="font-medium text-gray-700">Cámara ID</span>
+                                    </div>
+                                    <p class="text-gray-900">${data.idCamara}</p>
+                                </div>
+                                
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <i class="fas fa-clock text-gray-500"></i>
+                                        <span class="font-medium text-gray-700">Estado</span>
+                                    </div>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                        <i class="fas fa-spinner fa-spin mr-1"></i>
+                                        En Proceso
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="flex flex-wrap gap-2 pt-4 border-t">
+                                <button class="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    <i class="fas fa-ambulance"></i>
+                                    <span>Enviar Ambulancia</span>
+                                </button>
+                                <button class="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Contactar</span>
+                                </button>
+                                <button class="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    <i class="fas fa-map"></i>
+                                    <span>Ver Mapa</span>
+                                </button>
+                                <button class="flex items-center space-x-2 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    <i class="fas fa-file-medical"></i>
+                                    <span>Historial</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Image -->
+                        <div class="lg:col-span-1">
+                            <div class="bg-gray-50 rounded-lg p-4 h-full">
+                                <div class="flex items-center space-x-2 mb-3">
+                                    <i class="fas fa-camera text-gray-500"></i>
+                                    <span class="font-medium text-gray-700">Imagen del Incidente</span>
+                                </div>
+                                <div class="relative">
+                                    <img src="${data.image_url}" alt="Imagen del incidente" 
+                                         class="w-full h-48 object-cover rounded-lg border-2 border-gray-200">
+                                    <div class="absolute top-2 right-2">
+                                        <button class="bg-white bg-opacity-80 hover:bg-opacity-100 p-2 rounded-full shadow-sm transition-all">
+                                            <i class="fas fa-expand text-gray-600"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const noNotifications = document.querySelector('.no-notifications');
+            if (noNotifications) {
+                noNotifications.remove();
+            }
+
+            notificationsContainer.insertBefore(notificationElement, notificationsContainer.firstChild);
+            
+            // Highlight effect
+            notificationElement.style.backgroundColor = '#fef7f7';
+            setTimeout(() => {
+                notificationElement.style.backgroundColor = 'white';
+            }, 3000);
+            
+            updateStats();
+        };
+
+        // Audio permission setup
+        document.addEventListener('click', () => {
+            audioElement.play().then(() => {
+                audioElement.pause();
+                audioElement.currentTime = 0;
+            }).catch(e => console.log("Audio setup:", e));
+        }, { once: true });
+
+        // Initialize stats
+        updateStats();
+    </script>
+</body>
+</html>
